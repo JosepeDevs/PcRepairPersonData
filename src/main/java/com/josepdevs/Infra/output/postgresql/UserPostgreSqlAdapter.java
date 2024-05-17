@@ -28,50 +28,45 @@ public class UserPostgreSqlAdapter implements UserRepository{
         this.userJpaRepository = userJpaRepository;
     }
     
-    
+	//////////////Commands////////////////
+
 	@Override
-    public void createClient(UserEntity user) {
+    public void createUser(UserEntity user) {
 		UserEntity userEntity = new UserEntity(
-	                UUID.fromString1(user.getIdUser()),
-	                user.getName(),
+	            	user.getIdUser(),
+	            	user.getEmail(),
 	                user.getPsswrd(),
-	                user.getEmail(),
+	                user.getName(),
+	                user.getRole(),
+	                user.isActive()
 	        );
 	        userJpaRepository.save(userEntity);
-		
 	}
+	
+	@Override
+	public void updateUser(UserEntity user) {
+        userJpaRepository.save(user);
+	}
+	
+	@Override
+	public void deleteUser(UUID idClient){
+		Optional<UserEntity> tempUser = userJpaRepository.findById(idClient);
+		UserEntity user = tempUser.orElse(null); // if there is a user, that's the value, otherwise it will be null
+		user.setActive(false);
+        userJpaRepository.save(user);
+	}
+    
     
 	///////////////queries/////////////
 	@Override
-	public UserEntity getClient(@Param("idClient") String idClient) {
-		
-		String sqlQuery =  "SELECT * FROM clients where client_id=:idClient";
-		 jdbcTemplate.update(sqlQuery, idClient);
+	public Optional<UserEntity> searchUser(UUID idClient){
+		return userJpaRepository.findById(idClient);
 	}
 	
 	@Override
-    public List<UserEntity> findAll(){
+	public List<UserEntity> readAll(){
+		return userJpaRepository.findAll();
+    }
 		
-		String sqlQuery = "SELECT * FROM clients";
-	}
-    
-	
-	//////////////Commands////////////////
-	@Override
-	public UserEntity updateClient(@Param("idUser") String idUser, @Param("email") String email, @Param("psswrd") String psswrd,
-									 @Param("name") String name, @Param("role") String role, @Param("active") boolean active) {
-		
-		String sqlQuery =  "UPDATE clients SET client_id=:client_id, email=:email, psswrd=:psswrd, name=:name, role=:role, active=:active ";
-		
-	}
-	
-	@Override
-    public UserEntity deleteClient(@Param("active") boolean active) {
-		
-		String sqlQuery = "UPDATE clients SET active=:active";
-	}
-	
-
-
 
 }

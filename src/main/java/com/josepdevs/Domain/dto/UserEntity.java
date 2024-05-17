@@ -2,12 +2,17 @@ package com.josepdevs.Domain.dto;
 
 import java.util.UUID;
 
+import org.springframework.data.annotation.Id;
+
 import com.josepdevs.Domain.dto.valueobjects.Email;
 import com.josepdevs.Domain.dto.valueobjects.Name;
 import com.josepdevs.Domain.dto.valueobjects.Psswrd;
 import com.josepdevs.Domain.dto.valueobjects.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +24,11 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 public class UserEntity {
-
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_user")
 	private UUID idUser;
+	
 	private Email email;
 	private Psswrd psswrd;
 	private Name name;
@@ -47,6 +55,5 @@ public class UserEntity {
 		this.active = active;
 	}
 	
-	
-	
+
 }
