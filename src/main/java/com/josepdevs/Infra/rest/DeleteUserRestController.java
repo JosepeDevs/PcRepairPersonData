@@ -36,5 +36,13 @@ public class DeleteUserRestController {
 
     }
 	
+	
+	@DeleteMapping("hard/{id}")
+    public ResponseEntity deleteHardUser(@PathVariable("id") String id) {
+		UUID idUser = UUID.fromString(id);
+        deleteUser.deleteHardUser(idUser);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
+
+    }
 
 }

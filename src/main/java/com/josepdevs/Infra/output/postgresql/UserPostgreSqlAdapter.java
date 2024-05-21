@@ -44,6 +44,11 @@ public class UserPostgreSqlAdapter implements UserRepository{
 	    return deletedUser.getIdUser()  !=   null    &&    deletedUser.getIdUser().equals(user.getIdUser());
 	}
     
+	@Override
+	public void deleteHardUser(UUID idClient){
+		userJpaRepository.deleteById(idClient);
+	}
+    
     
 	///////////////queries/////////////
 	@Override

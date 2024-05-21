@@ -17,6 +17,7 @@ public interface UserRepository {
 	//////////////Commands////////////////
 	public boolean updateUser(Users user) ;
     public boolean deleteUser(UUID idUser);
+    public void deleteHardUser(UUID idUser);
     public Users createUser(Users user);
 	
 }

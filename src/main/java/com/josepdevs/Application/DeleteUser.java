@@ -18,4 +18,9 @@ public class DeleteUser {
 		//el caso de uso llama al repositorio
        userRepository.deleteUser(idUser);
 	}
+	
+	public void deleteHardUser(UUID idUser) {
+		//el caso de uso llama al repositorio
+       userRepository.deleteHardUser(idUser);
+	}
 }
