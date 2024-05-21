@@ -1,5 +1,6 @@
 package com.josepdevs.Domain.Exceptions;
 
+
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class UserNotFoundException  extends NullPointerException{
 	//pasamos el mensaje a RunTimeException y logeamos el error
 	public UserNotFoundException(UUID idUser, String message) {
         super(message);
-        log.error("The item you searched was not found/present", idUser);
+        log.error(message, idUser);
     }
 	
 }
