@@ -15,7 +15,7 @@ Este proyecto implementa microservicios utilizando una arquitectura hexagonal, A
 - **Swagger: Swagger-UI, Swagger-codeGen, Swagger ReDoc**
 - **CQRS**
 
-##Estilo 
+## Estilo 
 - **Microservicios**
 - **Arquitectura hexagonal**
 - **Desarrollo API-first (OpenAPI : OAS)**
