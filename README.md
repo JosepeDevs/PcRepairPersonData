@@ -31,7 +31,7 @@ La infraestructura del proyecto incluye:
 
 - **AWS RDS --> PostgreSQL (para las escrituras: commands)**
 - **API HTTP REST RestFul**
-- **Postman/SwaggerUI**
+- **Postman para peticiones HTTP**
 - **MongoDB para las lectuas (queries)**
 
 ## Disclaimer
