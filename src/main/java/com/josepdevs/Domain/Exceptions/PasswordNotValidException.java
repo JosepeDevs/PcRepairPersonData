@@ -12,9 +12,10 @@ public class PasswordNotValidException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	//pasamos el mensaje a RunTimeException y logeamos el error
-	public PasswordNotValidException(String password, String message) {
+	public PasswordNotValidException(String message, String password) {
         super(message);
         log.error(message,password);
+        
     }
 
 }
