@@ -11,7 +11,7 @@ public class EmailNotValidException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public EmailNotValidException(String email, String message) {
+	public EmailNotValidException(String message, String email) {
 		super(message);
 		log.error(message,email);
 	}
