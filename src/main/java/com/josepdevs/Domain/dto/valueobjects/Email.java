@@ -11,13 +11,13 @@ public class Email {
 	
 	public Email(String email) {
 		
-		if ( ! email.matches("^\\w[-\\.]*@([\\w-]+\\.)+[\\w-]{2,}$")) {
+		if ( ! email.matches("^[\\w-_\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
 		    // algunos ejemplos aceptados hoola-adios@mundo.com , hola_adioos@mundo.com
-			throw new EmailNotValidException(email,"The email format was not adequate, before the @ we allow the use of -_. before the @ but avoid using other characters or contact our suppor team");
+			throw new EmailNotValidException("The email format was not adequate, before the @ we allow the use of -_. and - after the @",email);
 		}
 		
 		if( email.length()>=255 ) {
-			throw new LongInputException(email,"The email length was too much, if saved, it has been truncated.");
+			throw new LongInputException("The email length was too much, if saved, it has been truncated.",email);
 		}
 		
 		this.email = email;
