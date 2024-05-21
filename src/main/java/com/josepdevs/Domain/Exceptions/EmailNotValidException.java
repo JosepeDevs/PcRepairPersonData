@@ -13,7 +13,7 @@ public class EmailNotValidException extends RuntimeException {
 
 	public EmailNotValidException(String email, String message) {
 		super(message);
-		log.error(email,"email format was not valid");
+		log.error(message,email);
 	}
 	
 }
