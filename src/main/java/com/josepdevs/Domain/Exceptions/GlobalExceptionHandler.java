@@ -3,6 +3,8 @@ package com.josepdevs.Domain.Exceptions;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.management.relation.RoleNotFoundException;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,20 +31,23 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(PasswordNotValidException.class)
-    public ResponseEntity<Map<String, String>> handlePasswordNotValidError(PasswordNotValidException ex) {
-        Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put("password", "Password did not meet either the required lower case, upper case and symbol requirement or the length was not enough");
+    @ExceptionHandler(RoleNotFoundException.class)
+    public ResponseEntity<RoleNotFoundException> handleRoleNotFoundException(RoleNotFoundException ex) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); 
-        return new ResponseEntity<>(errorDetails, headers, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex, headers, HttpStatus.BAD_REQUEST);
+    }
+	
+    @ExceptionHandler(PasswordNotValidException.class)
+    public ResponseEntity<PasswordNotValidException> handlePasswordNotValidError(PasswordNotValidException ex) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON); 
+        return new ResponseEntity<>(ex, headers, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
-        Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put("error", "An illegal argument was provided.");
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    public ResponseEntity<IllegalArgumentException> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = NullPointerException.class)
