@@ -37,7 +37,7 @@ public class PutUserRestController {
         editUser.updateUser(userId, user); // Implement the update logic in your service layer
         
         //this will create an event  (in the future), instead of a return (CQRS)
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
     }
 
 }

@@ -23,7 +23,7 @@ public class GetUser {
 	
 	public Users getUser(UUID idUser){
 		Optional<Users> existentUser = userFinder.findById(idUser);
-		Users user = existentUser.orElseThrow( () -> new UserNotFoundException("The user with the searched id was not found",idUser)); 
+		Users user = existentUser.orElseThrow( () -> new UserNotFoundException("The user with the searched id was not found",idUser.toString())); 
         return user;
 	}	
 	

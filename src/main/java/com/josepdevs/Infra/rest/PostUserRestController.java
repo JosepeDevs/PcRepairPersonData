@@ -27,7 +27,7 @@ public class PostUserRestController {
 	
 	@PostMapping("/users")
     public ResponseEntity<Users> createUser(@RequestBody UserDto user) {
-    	try {
+    	
 			//When spring boot parses the JSON body and maps it to our entity, it will call the constructor, since we throw there our own Exceptions we do not required to validate here the data
 	    	//it will be validated when constructing the object, this can throw HttpMessageNotReadableException, already handled in our GlobalExceptionHandler
     		Users newUser = compose.composeUserEntityWithoutId(user);
@@ -35,12 +35,7 @@ public class PostUserRestController {
 	    	
 	    	//in the future this will instead create an event and return nothing
 	        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-	     
-    	} catch (Exception ex) {
-    		
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
-	    }
+	    
     }
 
 }
