@@ -15,7 +15,7 @@ public class UserNotFoundException  extends NullPointerException{
 	private static final long serialVersionUID = 1L;
 
 	//pasamos el mensaje a RunTimeException y logeamos el error
-	public UserNotFoundException(UUID idUser, String message) {
+	public UserNotFoundException( String message, UUID idUser) {
         super(message);
         log.error(message, idUser);
     }
