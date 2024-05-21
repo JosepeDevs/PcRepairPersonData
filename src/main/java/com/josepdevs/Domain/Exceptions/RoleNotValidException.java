@@ -14,7 +14,7 @@ public class RoleNotValidException extends RuntimeException{
 	//pasamos el mensaje a RunTimeException y logeamos el error
 	public RoleNotValidException(String role, String message) {
         super(message);
-        log.error("Role not valid",role);
+        log.error(message,role);
     }
 
 }
