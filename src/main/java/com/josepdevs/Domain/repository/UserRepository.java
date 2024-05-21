@@ -4,18 +4,19 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.josepdevs.Domain.dto.UserEntity;
+import com.josepdevs.Domain.dto.UserDto;
+import com.josepdevs.Domain.dto.Users;
 
 public interface UserRepository {
 	
 	///////////////queries/////////////
-	public Optional<UserEntity> searchUser(UUID idClient) ;
-    public List<UserEntity> readAll();
+	public Optional<Users> searchUser(UUID idClient) ;
+    public List<Users> readAll();
 		
 	
 	//////////////Commands////////////////
-	public void updateUser(UserEntity user) ;
-    public void deleteUser(UUID idUser);
-    public void createUser(UserEntity user);
+	public boolean updateUser(Users user) ;
+    public boolean deleteUser(UUID idUser);
+    public Users createUser(Users user);
 	
 }
