@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice //This annotation applies the exception handler across the whole application = global exception handler. This class can contain multiple methods, each annotated with @ExceptionHandler, to handle different types of exceptions.
 public class GlobalExceptionHandler {
@@ -23,6 +24,19 @@ public class GlobalExceptionHandler {
     
     
     //////////BUILT-IN EXCEPTIONS HANDLING TO NOW SHOW STACKTRACE
+    
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity globalExceptionManager(Exception ex) {
+		Map<String, String> errorDetails = new HashMap<>();
+        errorDetails.put("Exception", "A problem happened.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+    }
+	@ExceptionHandler(NoResourceFoundException.class)
+	public ResponseEntity myNoResourceFoundException(NoResourceFoundException ex) {
+		Map<String, String> errorDetails = new HashMap<>();
+        errorDetails.put("NoResourceFoundException", "The resouce you were looking for does not exist or has been removed.");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+    }
     
     
 	@ExceptionHandler(HttpMessageNotReadableException.class)
