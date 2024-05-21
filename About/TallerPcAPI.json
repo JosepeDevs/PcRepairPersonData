@@ -129,7 +129,7 @@
               "required": true,
               "schema": {
                 "type": "string",
-                "format": "uuid"
+                "format": "int"
               }
             }
           ],
@@ -180,7 +180,7 @@
               "required": true,
               "schema": {
                 "type": "string",
-                "format": "uuid"
+                "format": "int"
               }
             }
           ],
@@ -437,7 +437,7 @@
           "properties": {
             "id_user": {
                 "type": "string",
-                "format": "uuid",
+                "format": "int",
                 "readOnly": true
             },
             "email": {
@@ -466,7 +466,7 @@
           "properties": {
             "id_repair": {
                 "type": "string",
-                "format": "uuid",
+                "format": "int",
                 "readOnly": true
             },
             "price": {
@@ -489,16 +489,16 @@
           "properties": {
             "id_order": {
               "type": "string",
-              "format": "uuid",
+              "format": "int",
               "readOnly": true
             },
             "id_repair": {
                 "type": "string",
-                "format": "uuid"
+                "format": "int"
             },
             "id_user": {
                 "type": "string",
-                "format": "uuid"
+                "format": "int"
             },
             "price": {
               "type": "number"
