@@ -21,7 +21,7 @@ public class Role {
 	        break;
 	    }
 	    default:
-	    	throw new RoleNotValidException(role, "Role should be one of the available options.");
+	    	throw new RoleNotValidException("Role should be one of the available options ('user' or 'admin')", role);
 		}
 		
 		this.role=role;
