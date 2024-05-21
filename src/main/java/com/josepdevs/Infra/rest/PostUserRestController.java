@@ -1,50 +1,46 @@
 package com.josepdevs.Infra.rest;
 
-import java.time.LocalDate;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.josepdevs.Application.CreateUser;
-import com.josepdevs.Application.GetUser;
-import com.josepdevs.Domain.dto.UserEntity;
+import com.josepdevs.Domain.dto.UserDto;
+import com.josepdevs.Domain.dto.Users;
+import com.josepdevs.Domain.service.UserEntityComposerService;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
-@RequestMapping("users")
 public class PostUserRestController {
 
 	//hacemos que el caso de uso sea un atributo del rest controller 
 	private final CreateUser createUser;
-	
-	@Autowired Request request;
-    
-	//inyectamos el caso de uso en el constructor 
-	public PostUserRestController(CreateUser createUser) {
+	//hacemos que los servicios que nos hagan falta son parte del rest controller
+    private final UserEntityComposerService compose;
+
+	//inyectamos en el constructor, esencialmente es lo mismo que @#autowired pero así es más explicito  y creo que facilitará los mock de tests 
+	public PostUserRestController(CreateUser createUser,  UserEntityComposerService compose) {
 		this.createUser = createUser;
+		this.compose = compose;
 	}
 	
-    @PostMapping("create")
-    public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody UserEntity user) {
-    	//When spring boot parses the JSON body and maps it to our entity, it will call the constructor, since we throw there our own Exceptions we do not required to validate here the data
-    	//it will be validated when constructing the object, this can throw HttpMessageNotReadableException, already handled in our GlobalExceptionHandler
-    	UUID userId = UUID.fromString(id);
-    	createUser.createClient(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+	@PostMapping("/users")
+    public ResponseEntity<Users> createUser(@RequestBody UserDto user) {
+    	try {
+			//When spring boot parses the JSON body and maps it to our entity, it will call the constructor, since we throw there our own Exceptions we do not required to validate here the data
+	    	//it will be validated when constructing the object, this can throw HttpMessageNotReadableException, already handled in our GlobalExceptionHandler
+    		Users newUser = compose.composeUserEntityWithoutId(user);
+			newUser = createUser.createUser(newUser);
+	    	
+	    	//in the future this will instead create an event and return nothing
+	        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+	     
+    	} catch (Exception ex) {
+    		
+	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+	    }
     }
 
 }
