@@ -12,7 +12,7 @@ public class RoleNotValidException extends RuntimeException{
 	private static final long serialVersionUID = 1L;
 
 	//pasamos el mensaje a RunTimeException y logeamos el error
-	public RoleNotValidException(String role, String message) {
+	public RoleNotValidException( String message, String role) {
         super(message);
         log.error(message,role);
     }
