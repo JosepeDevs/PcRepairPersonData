@@ -14,7 +14,7 @@ public class LongInputException extends RuntimeException {
 	//pasamos el mensaje a RunTimeException y logeamos el error
 	public LongInputException(String input, String message) {
         super(message);
-        log.error("Input not valid: too many characters",input);
+        log.error(message,input);
     }
 	
 
