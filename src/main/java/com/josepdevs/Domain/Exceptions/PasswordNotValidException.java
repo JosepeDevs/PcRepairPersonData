@@ -14,7 +14,7 @@ public class PasswordNotValidException extends RuntimeException {
 	//pasamos el mensaje a RunTimeException y logeamos el error
 	public PasswordNotValidException(String password, String message) {
         super(message);
-        log.error("Password not valid",password);
+        log.error(message,password);
     }
 
 }
