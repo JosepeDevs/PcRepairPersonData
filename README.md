@@ -20,7 +20,7 @@ Este proyecto implementa microservicios utilizando una arquitectura hexagonal, A
 - **Arquitectura hexagonal**
 - **Desarrollo API-first (OpenAPI : OAS)**
 - **Clases y microservicios aplicando principios SOLID**
-- Excepciones propias
+- Excepciones propias, manejadas globalmente con un @ControllerAdvise, para código más limpio y control centralizado de errores.
 - Uso de opcionales de Java
 - Value Objects con validadores en los constructores
 - Librería Lombok para mayor productividad en clases repetitivas (constructores, getters, setters...)
