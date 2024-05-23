@@ -1,21 +1,23 @@
 package com.josepdevs.Application;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.josepdevs.Domain.dto.Users;
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.repository.UserRepository;
+import com.josepdevs.Domain.service.StringHasherService;
 
 @Component
 public class CreateUser {
 
-	@Autowired
     private UserRepository userRepository;
 	
+    public CreateUser(UserRepository userRepository, StringHasherService psswrdCheckerService, StringHasherService stringHasherService, String password) {
+    	this.userRepository = userRepository;
+    }
+    
 	public Users createUser(Users user){
-						
-		Users users = userRepository.createUser(user);
-        return users;
+		Users userWithUUID = userRepository.createUser(user);
+        return userWithUUID;
 	}	
 	
 }

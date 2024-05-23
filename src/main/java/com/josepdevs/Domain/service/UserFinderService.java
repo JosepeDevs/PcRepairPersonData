@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.josepdevs.Domain.dto.Users;
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +18,10 @@ public class UserFinderService {
 
     public Optional<Users> findById(UUID id) {
         return userRepository.searchUser(id);
+    }
+    
+    public Optional<Users> findByEmail(String email) {
+        return userRepository.searchUserByEmail(email);
     }
 
 }

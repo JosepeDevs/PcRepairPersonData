@@ -1,4 +1,4 @@
-package com.josepdevs.Domain.dto;
+package com.josepdevs.Domain.Entities;
 
 
 import java.util.UUID;

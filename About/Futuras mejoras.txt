@@ -1,0 +1,11 @@
+·Crear tabla donde almacenar tokens caducados
+
+· Tarea periódica o función para limpiar registros MUY antiguos (de tokens expirados)
+Procedimientos almacenados:
+https://github.com/wso2/carbon-identity-framework/tree/master/features/identity-core/org.wso2.carbon.identity.core.server.feature/resources/dbscripts/stored-procedures
+
+·Oauth
+vertabelo.com/blog/user-authentication-module/
+
+·MultiFactor Authentication MFA
+vertabelo.com/blog/user-authentication-module/

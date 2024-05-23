@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.Exceptions.UserNotFoundException;
-import com.josepdevs.Domain.dto.Users;
 import com.josepdevs.Domain.repository.UserRepository;
 import com.josepdevs.Domain.service.UserFinderService;
 

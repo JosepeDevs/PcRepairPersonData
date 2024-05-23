@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.josepdevs.Application.GetUser;
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.dto.UserDto;
-import com.josepdevs.Domain.dto.Users;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
 public class GetUserRestController {

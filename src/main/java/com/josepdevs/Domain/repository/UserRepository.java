@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.dto.UserDto;
-import com.josepdevs.Domain.dto.Users;
 
 public interface UserRepository {
 	
 	///////////////queries/////////////
 	public Optional<Users> searchUser(UUID idClient) ;
-    public List<Users> readAll();
+	public Optional<Users> searchUserByEmail(String email) ;
+	public List<Users> readAll();
 		
 	
 	//////////////Commands////////////////

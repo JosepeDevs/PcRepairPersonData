@@ -2,16 +2,16 @@ package com.josepdevs.Domain.service;
 
 import org.springframework.stereotype.Service;
 
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.dto.UserDto;
-import com.josepdevs.Domain.dto.Users;
 import com.josepdevs.Domain.dto.valueobjects.Email;
 import com.josepdevs.Domain.dto.valueobjects.Psswrd;
 import com.josepdevs.Domain.dto.valueobjects.Role;
 
 @Service
-public class UserEntityComposerService {
+public class UserBuilderFromUserDtoService {
 
-	public Users composeUserEntityWithoutId(UserDto userDto) {
+	public Users buildUserEntityWithoutId(UserDto userDto) {
 		//el caso de uso llama al repositorio
 		String email  = userDto.getEmail();
 		String psswrd = userDto.getPsswrd();
@@ -32,7 +32,6 @@ public class UserEntityComposerService {
 		.role(role)
 		.active(active)
 		.build();
-		
 		
 	}
 }

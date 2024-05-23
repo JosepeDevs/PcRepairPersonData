@@ -6,16 +6,17 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
-import com.josepdevs.Domain.dto.Users;
+import com.josepdevs.Domain.Entities.Users;
 import com.josepdevs.Domain.repository.UserRepository;
+import com.josepdevs.Domain.service.StringHasherService;
 import com.josepdevs.Infra.output.UserJpaRepository;
 
 @Repository
 public class UserPostgreSqlAdapter implements UserRepository{
 
     private final UserJpaRepository userJpaRepository;
-	
-    public UserPostgreSqlAdapter(UserJpaRepository userJpaRepository) {
+    
+    public UserPostgreSqlAdapter(UserJpaRepository userJpaRepository,StringHasherService psswrdCheckerService ) {
         this.userJpaRepository = userJpaRepository;
     }
     
@@ -23,9 +24,9 @@ public class UserPostgreSqlAdapter implements UserRepository{
 
 	@Override
     public Users createUser(Users user) {
-	        userJpaRepository.save(user);
-	        //after save it should contain the UUID, in the future this will return bool, and the event will publish the UUID
-	        return user;
+		userJpaRepository.save(user);
+        //after save it should contain the UUID, in the future this will return bool, and the event will publish the UUID
+        return user;
 	}
 	
 	@Override
@@ -54,6 +55,10 @@ public class UserPostgreSqlAdapter implements UserRepository{
 	@Override
 	public Optional<Users> searchUser(UUID idClient){
 		return userJpaRepository.findById(idClient);
+	}
+	@Override
+	public Optional<Users> searchUserByEmail(String email){
+		return Optional.ofNullable(userJpaRepository.findByEmail(email));
 	}
 	
 	@Override
