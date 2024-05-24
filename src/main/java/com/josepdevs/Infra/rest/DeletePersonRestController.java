@@ -11,36 +11,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.josepdevs.Application.DeleteUser;
-import com.josepdevs.Domain.dto.UserDto;
+import com.josepdevs.Application.DeletePersonData;
+import com.josepdevs.Domain.dto.PersonDataDto;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
-@RequestMapping("users")
-public class DeleteUserRestController {
+@RequestMapping("persons")
+public class DeletePersonRestController {
 
 	//hacemos que el caso de uso sea un atributo del rest controller 
-	private final DeleteUser deleteUser;
+	private final DeletePersonData deletePerson;
 	
-	@Autowired UserDto userDto;
+	@Autowired PersonDataDto personDto;
     
 	//inyectamos el caso de uso en el constructor 
-	public DeleteUserRestController(DeleteUser deleteUser) {
-		this.deleteUser = deleteUser;
+	public DeletePersonRestController(DeletePersonData deletePerson) {
+		this.deletePerson = deletePerson;
 	}
 	
 	@DeleteMapping("/{id}")
-    public ResponseEntity deleteUser(@PathVariable("id") String id) {
-		UUID idUser = UUID.fromString(id);
-        deleteUser.deleteUser(idUser);
+    public ResponseEntity deletePerson(@PathVariable("id") String id) {
+		UUID idPerson = UUID.fromString(id);
+        deletePerson.deletePerson(idPerson);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
 
     }
 	
 	
 	@DeleteMapping("hard/{id}")
-    public ResponseEntity deleteHardUser(@PathVariable("id") String id) {
-		UUID idUser = UUID.fromString(id);
-        deleteUser.deleteHardUser(idUser);
+    public ResponseEntity deleteHardPerson(@PathVariable("id") String id) {
+		UUID idPerson = UUID.fromString(id);
+        deletePerson.deleteHardPerson(idPerson);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
 
     }

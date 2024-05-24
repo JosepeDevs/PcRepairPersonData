@@ -5,10 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class TallerPcApplication {
+public class PersonManagerApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TallerPcApplication.class, args);
+		SpringApplication.run(PersonManagerApp.class, args);
 	}
 
 }

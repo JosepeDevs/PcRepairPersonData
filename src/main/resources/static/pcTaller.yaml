@@ -15,13 +15,13 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-  - url: https://{username}.josepedevs.com:{port}/{basePath}
+  - url: https://{personname}.josepedevs.com:{port}/{basePath}
     description: PRODUCTION SERVER
     variables:
-      username:
-        default: user
+      personname:
+        default: person
         description: >-
-          username used when you registered on the provider website, role will
+          personname used when you registered on the provider website, role will
           be checked to restrain access
       port:
         enum:
@@ -30,10 +30,10 @@ servers:
         default: '8443'
       basePath:
         default: v1
-  - url: https://{username}.josepedevs.com:{port}/{basePath}
+  - url: https://{personname}.josepedevs.com:{port}/{basePath}
     description: PRE SERVER
     variables:
-      username:
+      personname:
         default: admin
         description: >-
           usuario con el que se quieren hacer las pruebas en el server de PRE,
@@ -45,10 +45,10 @@ servers:
         default: '8333'
       basePath:
         default: v1
-  - url: https://{username}.josepedevs.com:{port}/{basePath}
+  - url: https://{personname}.josepedevs.com:{port}/{basePath}
     description: DEVELOPER SERVER
     variables:
-      username:
+      personname:
         default: admin
         description: >-
           usuario con el que se quieren hacer las pruebas a nivel local, si
@@ -61,23 +61,23 @@ servers:
       basePath:
         default: v1
 paths:
-  /users:
+  /persons:
     post:
-      operationId: createUser
+      operationId: createPerson
       summary: Crea un nuevo usuario
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/users'
+              $ref: '#/components/schemas/persons'
       responses:
         '201':
           description: Usuario creado exitosamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users'
+                $ref: '#/components/schemas/persons'
         '400':
           description: La petición falló, algún dato de los proporcionados no es válido
           content:
@@ -87,10 +87,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/errorMapList'
     put:
-      operationId: updateUser
+      operationId: updatePerson
       summary: Actualiza un usuario existente
       parameters:
-        - name: id_user
+        - name: id_person
           in: query
           description: clave primaria de la tabla de usuarios
           required: true
@@ -102,14 +102,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/users'
+              $ref: '#/components/schemas/persons'
       responses:
         '200':
           description: Usuario actualizado exitosamente
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/users'
+                $ref: '#/components/schemas/persons'
         '400':
           description: La petición falló, algún dato de los proporcionados no es válido
           content:
@@ -119,10 +119,10 @@ paths:
                 items:
                   $ref: '#/components/schemas/errorMapList'
     delete:
-      operationId: deleteUser
+      operationId: deletePerson
       summary: Elimina un usuario
       parameters:
-        - name: id_user
+        - name: id_person
           in: query
           description: clave primaria de la tabla de usuarios
           required: true
@@ -283,15 +283,15 @@ paths:
                   $ref: '#/components/schemas/errorMapList'
 components:
   schemas:
-    users:
+    persons:
       description: Tabla de usuarios
       type: object
       required:
-        - id_user
+        - id_person
         - email
         - psswrd
       properties:
-        id_user:
+        id_person:
           type: string
           format: int
           readOnly: true
@@ -329,7 +329,7 @@ components:
       type: object
       required:
         - id_order
-        - id_user
+        - id_person
         - id_repair
         - price
         - discount
@@ -343,7 +343,7 @@ components:
         id_repair:
           type: string
           format: int
-        id_user:
+        id_person:
           type: string
           format: int
         price:

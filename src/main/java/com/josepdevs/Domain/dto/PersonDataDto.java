@@ -12,11 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class UserDto {
+public class PersonDataDto {
 	
-    private String email;
-    private String psswrd;
     private String name;
+    private String nidPassport;
     private String role;
     private boolean active;
     

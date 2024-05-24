@@ -12,29 +12,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.josepdevs.Application.EditUser;
-import com.josepdevs.Domain.dto.UserDto;
+import com.josepdevs.Application.EditPersonData;
+import com.josepdevs.Domain.dto.PersonDataDto;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
-@RequestMapping("users")
-public class PutUserRestController {
+@RequestMapping("persons")
+public class PutPersonRestController {
 
 	//hacemos que el caso de uso sea un atributo del rest controller 
-	private final EditUser editUser;
+	private final EditPersonData editPerson;
 	
-	@Autowired UserDto userDto;
+	@Autowired PersonDataDto personDto;
     
 	//inyectamos el caso de uso en el constructor 
-	public PutUserRestController(EditUser editUser) {
-		this.editUser = editUser;
+	public PutPersonRestController(EditPersonData editPerson) {
+		this.editPerson = editPerson;
 	}
 	
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody UserDto user) {
+    public ResponseEntity<?> updatePerson(@PathVariable("id") String id, @RequestBody PersonDataDto person) {
     	//When spring boot parses the JSON body and maps it to our entity, it will call the constructor, since we throw there our own Exceptions we do not required to validate here the data
     	//it will be validated when constructing the object, this can throw HttpMessageNotReadableException, already handled in our GlobalExceptionHandler
-    	UUID userId = UUID.fromString(id);
-        editUser.updateUser(userId, user); // Implement the update logic in your service layer
+    	UUID personId = UUID.fromString(id);
+        editPerson.updatePerson(personId, person); // Implement the update logic in your service layer
         
         //this will create an event  (in the future), instead of a return (CQRS)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);

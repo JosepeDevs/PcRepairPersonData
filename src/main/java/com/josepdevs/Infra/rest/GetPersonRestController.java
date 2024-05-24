@@ -11,33 +11,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.josepdevs.Application.GetUser;
-import com.josepdevs.Domain.dto.UserDto;
-import com.josepdevs.Domain.dto.Users;
+import com.josepdevs.Application.GetPersonData;
+import com.josepdevs.Domain.dto.PersonDataDto;
+import com.josepdevs.Domain.dto.PersonData;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
-public class GetUserRestController {
+public class GetPersonRestController {
 
 	//hacemos que el caso de uso sea un atributo del rest controller 
-	private final GetUser getUser;
+	private final GetPersonData getPerson;
 	
-	@Autowired UserDto userDto;
+	@Autowired PersonDataDto personDto;
     
 	//inyectamos el caso de uso en el constructor 
-	public GetUserRestController(GetUser getUser) {
-		this.getUser = getUser; 
+	public GetPersonRestController(GetPersonData getPerson) {
+		this.getPerson = getPerson; 
 	}
 	
-    @GetMapping("users")
-    public ResponseEntity<List<Users>> getAll() {
-    	return ResponseEntity.status(HttpStatus.OK).body(getUser.getAll());
+    @GetMapping("persons")
+    public ResponseEntity<List<PersonData>> getAll() {
+    	return ResponseEntity.status(HttpStatus.OK).body(getPerson.getAll());
     }
     
-    @GetMapping(value = "users/{id}")
-    public ResponseEntity<Users> getClient(@PathVariable String id, @RequestBody UserDto userDto) {
+    @GetMapping(value = "persons/{id}")
+    public ResponseEntity<PersonData> getPerson(@PathVariable String id) {
     	//el controller llama al caso de uso
-    	UUID idUser = UUID.fromString(id);
-    	return ResponseEntity.status(HttpStatus.OK).body(getUser.getUser(idUser));
+    	UUID idPerson = UUID.fromString(id);
+    	return ResponseEntity.status(HttpStatus.OK).body(getPerson.getPerson(idPerson));
     }
 	
 
