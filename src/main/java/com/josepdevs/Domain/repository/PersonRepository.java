@@ -16,7 +16,6 @@ public interface PersonRepository {
 	
 	//////////////Commands////////////////
 	public boolean updatePersonData(PersonData person) ;
-    public boolean deletePersonData(UUID idPerson);
     public void deleteHardPersonData(UUID idPerson);
     public PersonData createPersonData(PersonData person);
 	

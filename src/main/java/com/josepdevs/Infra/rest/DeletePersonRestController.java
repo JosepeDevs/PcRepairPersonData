@@ -28,14 +28,6 @@ public class DeletePersonRestController {
 		this.deletePerson = deletePerson;
 	}
 	
-	@DeleteMapping("/{id}")
-    public ResponseEntity deletePerson(@PathVariable("id") String id) {
-		UUID idPerson = UUID.fromString(id);
-        deletePerson.deletePerson(idPerson);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
-
-    }
-	
 	
 	@DeleteMapping("hard/{id}")
     public ResponseEntity deleteHardPerson(@PathVariable("id") String id) {

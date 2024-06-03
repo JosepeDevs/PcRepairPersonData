@@ -3,8 +3,6 @@ package com.josepdevs.Domain.dto;
 
 import java.util.UUID;
 
-import com.josepdevs.Domain.dto.valueobjects.Role;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,28 +30,13 @@ public class PersonData {
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "role")
-	private String role;
-
 	@Column(name = "nid_passport")
 	private String nidPassport;
 
-	private boolean active;
-
-
-	public PersonData(UUID idPerson, String name, String role, String nidPassport, boolean active ) {
+	public PersonData(UUID idPerson, String name, String nidPassport) {
 		this.idPerson = idPerson;
 		this.nidPassport = nidPassport;
 		this.name = name;
-		this.role = new Role(role).getRole();
-		this.active = active;
 	}
 
-	public PersonData(UUID idPerson, String name, Role role, String nidPassport,  boolean active) {
-		this.idPerson = idPerson;
-		this.nidPassport = nidPassport;
-		this.name = name;
-		this.role = role.getRole();
-		this.active = active;
-	}
 }

@@ -54,6 +54,21 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		    <version>4.0.4</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign -->
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-starter-openfeign</artifactId>
+		    <version>4.1.1</version>
+		</dependency>
+		
 		<!--añadido según el post↓↓ https://mydeveloperplanet.com/2022/02/08/generate-server-code-using-openapi-generator/ luego en mvn central copio la dependencia entera)-->
 		
 		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
@@ -150,7 +165,7 @@
 			                <goal>generate</goal>
 			            </goals>
 			            <configuration>
-			                <inputSpec>${project.basedir}/src/main/resources/static/pcTaller.yaml</inputSpec>
+			                <inputSpec>${project.basedir}/src/main/resources/static/pcMicroservice.yaml</inputSpec>
 		                
 				              <generateApis>true</generateApis>
 					          	<generateModels>true</generateModels>

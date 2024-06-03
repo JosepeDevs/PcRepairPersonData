@@ -36,19 +36,6 @@ public class PersonPostgreSqlAdapter implements PersonRepository{
 	}
 	
 	@Override
-	public boolean deletePersonData(UUID idPerson){
-		Optional<PersonData> tempPerson = personJpaRepository.findById(idPerson);
-		PersonData person = tempPerson.orElse(null); // if there is a person, that's the value, otherwise it will be null
-		person.setActive(false);
-		if( person.getIdPerson()  !=   null    &&    idPerson.equals(person.getIdPerson() ) ){
-			PersonData deletedPerson = personJpaRepository.save(person);
-			return true;
-		} else {
-			return false;
-		}
-	}
-    
-	@Override
 	public void deleteHardPersonData(UUID idPerson){
 		personJpaRepository.deleteById(idPerson);
 	}

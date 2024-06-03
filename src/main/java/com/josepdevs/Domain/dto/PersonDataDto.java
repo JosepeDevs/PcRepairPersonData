@@ -16,7 +16,5 @@ public class PersonDataDto {
 	
     private String name;
     private String nidPassport;
-    private String role;
-    private boolean active;
     
 }

@@ -1,4 +1,3 @@
-# DEFAULT /PREDETERMINADO si no se especifica entorno
 spring:
   application:
     name: PersonManager
@@ -17,7 +16,14 @@ spring:
         "[show_sql]": true
         "[default_schema]": pctaller
 server:
-  port: 5555 
+  port: ${SERVER_PORT} 
 logging:
   level:
    "[org.springframework.web]": INFO
+   
+# eureka:
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#     defaultZone: http://${EUREKA_INSTANCE_HOSTNAME}:${EUREKA_PORT}/eureka
