@@ -21,9 +21,9 @@ logging:
   level:
    "[org.springframework.web]": INFO
    
-# eureka:
-#  client:
-#    fetch-registry: true
-#    register-with-eureka: true
-#    service-url:
-#     defaultZone: http://${EUREKA_INSTANCE_HOSTNAME}:${EUREKA_PORT}/eureka
+eureka:
+ client:
+  fetch-registry: true
+  register-with-eureka: true
+  service-url:
+    defaultZone: http://${EUREKA_INSTANCE_HOSTNAME}:${EUREKA_PORT}/eureka

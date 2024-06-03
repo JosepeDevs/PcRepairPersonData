@@ -1,5 +1,7 @@
 package com.josepdevs.Domain.service;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import com.josepdevs.Domain.dto.PersonDataDto;
@@ -9,18 +11,16 @@ import com.josepdevs.Domain.entities.PersonData;
 public class PersonEntityComposerService {
 
 	public PersonData composePersonEntityWithoutId(PersonDataDto personDto) {
-		//el caso de uso llama al repositorio
+
 		String nidPassport = personDto.getNidPassport();
-		
+		String idPerson = personDto.getId();
 		PersonData person = new PersonData();
+		
 		person.setName(personDto.getName());
 		person.setNidPassport(nidPassport);
+		person.setIdPerson(UUID.fromString(idPerson));
 		
-		 return PersonData.builder()
-		.name(personDto.getName())
-		.nidPassport(nidPassport)
-		.build();
-		
+		 return person;
 		
 	}
 }
