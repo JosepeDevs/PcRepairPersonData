@@ -29,7 +29,7 @@ public class EditPersonData {
 	public void updatePerson(UUID idPerson, PersonDataDto personDto) {
 		//el caso de uso llama al repositorio
 		Optional<PersonData> existentPerson = personFinder.findById(idPerson);
-		PersonData person = existentPerson.orElseThrow( () -> new PersonNotFoundException("The person with the searched id was not found",idPerson.toString())); 
+		PersonData person = existentPerson.orElseThrow( () -> new PersonNotFoundException("The person with the searched id was not found","idPerson")); 
 		PersonData personComposed = compose.composePersonEntityWithoutId(personDto);
 		personComposed.setIdPerson(idPerson);
        personRepository.updatePersonData(personComposed);

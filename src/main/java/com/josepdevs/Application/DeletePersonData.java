@@ -25,7 +25,7 @@ public class DeletePersonData {
 	public void deleteHardPerson(UUID idPerson) {
 		//el caso de uso llama al repositorio
 		Optional<PersonData> existentPerson = personFinder.findById(idPerson);
-		PersonData person = existentPerson.orElseThrow( () -> new PersonNotFoundException("The person with the searched id was not found",idPerson.toString())); 
+		PersonData person = existentPerson.orElseThrow( () -> new PersonNotFoundException("The person with the searched id was not found","idPerson")); 
        personRepository.deleteHardPersonData(idPerson);
 	}
 }

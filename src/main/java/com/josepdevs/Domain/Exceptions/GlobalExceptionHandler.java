@@ -16,10 +16,10 @@ public class GlobalExceptionHandler {
 	
 	//MY CUSTOMIZED EXCEPTIONS
 	
-    @ExceptionHandler(MyRuntimeException.class)
+    @ExceptionHandler(MyRuntimeException.class) 
     public ResponseEntity handleMyExceptions(MyRuntimeException ex) {
         Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put("The attribute with value: '"+ex.getIllegalAttributeValue()+"' was not valid", ex.getMyErrorMessage());
+        errorDetails.put("The attribute with name: '"+ex.getIllegalAttributeName()+"' was not valid", ex.getMyErrorMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
     

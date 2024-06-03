@@ -23,7 +23,7 @@ public class GetPersonData {
 	
 	public PersonData getPerson(UUID idPerson){
 		Optional<PersonData> existentPerson = personFinder.findById(idPerson);
-		PersonData person = existentPerson.orElseThrow( () -> new PersonNotFoundException("The person with the searched id was not found",idPerson.toString())); 
+		PersonData person = existentPerson.orElseThrow( () -> new PersonNotFoundException("The person with the searched id was not found","idPerson")); 
         return person;
 	}	
 	
