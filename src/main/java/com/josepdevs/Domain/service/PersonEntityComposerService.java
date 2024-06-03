@@ -3,7 +3,7 @@ package com.josepdevs.Domain.service;
 import org.springframework.stereotype.Service;
 
 import com.josepdevs.Domain.dto.PersonDataDto;
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 
 @Service
 public class PersonEntityComposerService {

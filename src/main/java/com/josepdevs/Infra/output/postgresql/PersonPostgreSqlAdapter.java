@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 import com.josepdevs.Domain.repository.PersonRepository;
 import com.josepdevs.Infra.output.PersonJpaRepository;
 

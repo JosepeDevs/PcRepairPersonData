@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 import com.josepdevs.Domain.repository.PersonRepository;
 
 import lombok.RequiredArgsConstructor;

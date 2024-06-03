@@ -3,7 +3,7 @@ package com.josepdevs.Application;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 import com.josepdevs.Domain.repository.PersonRepository;
 
 @Component

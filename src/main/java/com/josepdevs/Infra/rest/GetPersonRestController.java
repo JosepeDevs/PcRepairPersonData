@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.josepdevs.Application.GetPersonData;
 import com.josepdevs.Domain.dto.PersonDataDto;
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
 public class GetPersonRestController {

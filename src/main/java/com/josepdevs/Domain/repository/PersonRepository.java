@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.josepdevs.Domain.dto.PersonDataDto;
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 
 public interface PersonRepository {
 	

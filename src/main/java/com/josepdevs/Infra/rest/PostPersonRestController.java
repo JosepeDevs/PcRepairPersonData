@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.josepdevs.Application.CreatePersonData;
 import com.josepdevs.Domain.dto.PersonDataDto;
-import com.josepdevs.Domain.dto.PersonData;
+import com.josepdevs.Domain.entities.PersonData;
 import com.josepdevs.Domain.service.PersonEntityComposerService;
 
 @RestController //Spring will automatically send responses as JSON, no need to set that up
