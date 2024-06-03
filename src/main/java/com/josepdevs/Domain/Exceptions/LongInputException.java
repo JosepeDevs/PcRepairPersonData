@@ -1,5 +1,6 @@
 package com.josepdevs.Domain.Exceptions;
 
+
 public class LongInputException extends MyRuntimeException {
 	
 	private static final long serialVersionUID = 1L;
@@ -10,3 +11,4 @@ public class LongInputException extends MyRuntimeException {
     }
 
 }
+
