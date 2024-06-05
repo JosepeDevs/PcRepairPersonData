@@ -42,6 +42,5 @@ public class GetPersonRestController {
     	UUID idPerson = UUID.fromString(id);
     	return ResponseEntity.status(HttpStatus.OK).body(getPerson.getPerson(idPerson));
     }
-	
 
 }
