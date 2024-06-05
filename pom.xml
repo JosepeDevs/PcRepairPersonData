@@ -169,21 +169,10 @@
 		                
 				              <generateApis>true</generateApis>
 					          	<generateModels>true</generateModels>
-					         <!-- <generateSupportingFiles>false</generateSupportingFiles>-->
-
-                         <!--<configOptions>
-
-								<basePackage>com.josepedevs</basePackage>
-               					<sourceFolder>src/main/java</sourceFolder>
-                				<hideGenerationTimestamp>true</hideGenerationTimestamp>
-                				<swaggerDirectory>${basedir}/generated/swagger-ui</swaggerDirectory>
-	                            <outputPath>${project.basedir}/generated/document.html</outputPath>-->
- 
 				                <generatorName>spring</generatorName>
 							    <packageName>com.josepedevs</packageName>
 							    <apiPackage>com.josepedevs.Infra.rest</apiPackage>
 							    <modelPackage>com.josepedevs.domain.dto</modelPackage>
-                         <!-- </configOptions>-->	
 
 			            </configuration>
 			        </execution>
