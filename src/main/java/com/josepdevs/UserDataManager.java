@@ -7,10 +7,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-public class PersonManagerApp {
+public class UserDataManager {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PersonManagerApp.class, args);
+		SpringApplication.run(UserDataManager.class, args);
 	}
 
 }
