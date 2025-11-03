@@ -1,4 +1,4 @@
-package com.josepedevs.infra.persistence.dto;
+package com.josepedevs.infra.persistence.jpa.dto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,10 +19,9 @@ import lombok.Setter;
 @Table(name = "persons")
 public class PersonDataDao {
 
-    // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user")
     @Id
-    private UUID idPerson;
+    private String idPerson;
 
     @Column(name = "name")
     private String name;
@@ -34,7 +33,7 @@ public class PersonDataDao {
     @Column(name = "metadata", nullable = false)
     private String metadata;
 
-    public PersonDataDao(UUID idPerson, String name, String nidPassport, String metadata) {
+    public PersonDataDao(String idPerson, String name, String nidPassport, String metadata) {
         this.idPerson = idPerson;
         this.nidPassport = nidPassport;
         this.name = name;

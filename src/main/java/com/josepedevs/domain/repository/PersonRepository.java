@@ -1,6 +1,6 @@
 package com.josepedevs.domain.repository;
 
-import com.josepedevs.infra.persistence.dto.PersonDataDao;
+import com.josepedevs.domain.entities.PersonData;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -8,14 +8,14 @@ import java.util.UUID;
 public interface PersonRepository {
 
     // ********** queries **********//
-    Optional<PersonDataDao> searchPersonData(UUID idPerson);
+    Optional<PersonData> searchPersonData(String idPerson);
 
-    List<PersonDataDao> readAll();
+    List<PersonData> readAll();
 
     // ********** Commands **********//
-    boolean updatePersonData(PersonDataDao person);
+    boolean updatePersonData(PersonData person);
 
-    void deleteHardPersonData(UUID idPerson);
+    void deleteHardPersonData(String idPerson);
 
-    PersonDataDao createPersonData(PersonDataDao person);
+    PersonData createPersonData(PersonData person);
 }

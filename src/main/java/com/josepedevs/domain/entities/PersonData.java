@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @Data
 public class PersonData {
 
-    private UUID idPerson;
+    private String idPerson;
     private String name;
     private String nidPassport;
     private String metadata;
 
-    public PersonData(UUID idPerson, String name, String nidPassport, String metadata) {
+    public PersonData(String idPerson, String name, String nidPassport, String metadata) {
         new PersonData(idPerson, new NameVo(name), new NidPassportVo(nidPassport), new MetadataVo(metadata));
         this.idPerson = idPerson;
         this.nidPassport = nidPassport;
@@ -26,7 +26,7 @@ public class PersonData {
         this.metadata = metadata;
     }
 
-    public PersonData(UUID idPerson, NameVo name, NidPassportVo nidPassport, MetadataVo metadata) {
+    public PersonData(String idPerson, NameVo name, NidPassportVo nidPassport, MetadataVo metadata) {
         this.idPerson = idPerson;
         this.nidPassport = nidPassport.getNidPassport();
         this.name = name.getName();

@@ -1,4 +1,4 @@
-package com.josepedevs.domain.dto;
+package com.josepedevs.infra.rest.dto;
 
 import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
@@ -14,8 +14,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-public class PersonDataDto {
-    private String id;
+public class PersonDto {
     private NameVo name;
     private NidPassportVo nidPassport;
     private MetadataVo metadata;

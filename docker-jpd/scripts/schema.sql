@@ -1,5 +1,5 @@
 CREATE TABLE persons (
-    id_user        CHAR(36)    NOT NULL,
+    id_user        CHAR(255)    NOT NULL,
     metadata       CLOB,
     name           VARCHAR2(255 CHAR),
     nid_passport   VARCHAR2(100 CHAR),

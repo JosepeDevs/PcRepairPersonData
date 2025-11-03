@@ -17,4 +17,8 @@ public class NidPassportVo {
         }
         this.nidPassport = nidPassport;
     }
+
+    String map(NidPassportVo value){
+        return value.getNidPassport();
+    }
 }

@@ -1,8 +1,11 @@
 package com.josepedevs.infra.rest;
 
-import com.josepedevs.application.DeletePersonData;
 import java.util.UUID;
+import java.util.function.Consumer;
+
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,14 +16,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController // Spring will automatically send responses as JSON, no need to set that up
 @RequestMapping("persons")
 @AllArgsConstructor
+@Slf4j
 public class DeletePersonRestController {
 
-    private final DeletePersonData deletePerson;
+    private final Consumer<String> deleteUseCase;
+    private final Environment environment;
 
-    @DeleteMapping("hard/{id}")
+    @DeleteMapping("persons/hard/{id}")
     public ResponseEntity<Boolean> deleteHardPerson(@PathVariable("id") String id) {
-        UUID idPerson = UUID.fromString(id);
-        deletePerson.deleteHardPerson(idPerson);
+        log.info("Received in port {} the request to delete person with id", environment.getProperty("local.server.port"), id);
+        deleteUseCase.accept(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
     }
 }

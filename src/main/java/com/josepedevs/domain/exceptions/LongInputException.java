@@ -8,6 +8,6 @@ public class LongInputException extends MyRuntimeException {
     private static final long serialVersionUID = 1L;
 
     public LongInputException(String myErrorMessage, String illegalAttributeName) {
-        super(myErrorMessage, illegalAttributeName);
+        super(myErrorMessage, illegalAttributeName, DomainErrorStatus.UNPROCESSABLE_ENTITY);
     }
 }

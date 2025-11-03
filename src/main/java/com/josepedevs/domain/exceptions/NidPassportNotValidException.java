@@ -8,6 +8,6 @@ public class NidPassportNotValidException extends MyRuntimeException {
     private static final long serialVersionUID = 1L;
 
     public NidPassportNotValidException(String myErrorMessage, String illegalAttributeName) {
-        super(myErrorMessage, illegalAttributeName);
+        super(myErrorMessage, illegalAttributeName, DomainErrorStatus.UNPROCESSABLE_ENTITY);
     }
 }
