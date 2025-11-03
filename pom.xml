@@ -5,26 +5,27 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
+		<version>3.2.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.josepedevs</groupId>
 	<artifactId>UserDataManager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1.1-SNAPSHOT</version>
 	<name>TallerPC</name>
 	<description>UserDataManager</description>
 	<properties>
 		<java.version>21</java.version>
+		<spotless.version>2.43.0</spotless.version>
+		<mapstruct.version>1.6.0</mapstruct.version>
+		<lombok.version>1.18.36</lombok.version>
+		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
+		<hibernate-jpamodelgen.version>5.4.3.Final</hibernate-jpamodelgen.version>
+		<ojdbc11.version>23.26.0.0.0</ojdbc11.version>
+		<spring-cloud-starter-netflix.version>4.0.4</spring-cloud-starter-netflix.version>
+		<spring-cloud-starter-openfeign>4.1.1</spring-cloud-starter-openfeign>
 	</properties>
 	
 	<dependencies>
-		
-		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-		<dependency>
-		    <groupId>org.projectlombok</groupId>
-		    <artifactId>lombok</artifactId>
-		    <scope>compile</scope>
-		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -48,6 +49,12 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.oracle.database.jdbc</groupId>
+			<artifactId>ojdbc11</artifactId>
+			<version>${ojdbc11.version}</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -55,22 +62,26 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
 		<dependency>
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		    <version>4.0.4</version>
+		    <version>${spring-cloud-starter-netflix.version}</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign -->
 		<dependency>
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-starter-openfeign</artifactId>
-		    <version>4.1.1</version>
+		    <version>${spring-cloud-starter-openfeign}</version>
 		</dependency>
-		
-	</dependencies>
-		<!-- ADDDING PROFILES -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+<!-- ADDDING PROFILES -->
 	<profiles>
 	    <profile>
 	        <id>PROAWS</id>
@@ -84,6 +95,77 @@
 	            <activatedProperties>devneon</activatedProperties>
 	        </properties>
 	    </profile>
+		<profile>
+			<id>ORACLE</id>
+			<properties>
+				<activatedProperties>oracle</activatedProperties>
+			</properties>
+		</profile>
 	</profiles>
-
+<!-- ADDDING PLUGINS -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>${lombok.mapstruct.binding.version}</version>
+						</path>
+						<path>
+							<groupId>org.hibernate</groupId>
+							<artifactId>hibernate-jpamodelgen</artifactId>
+							<version>${hibernate-jpamodelgen.version}</version>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.diffplug.spotless</groupId>
+				<artifactId>spotless-maven-plugin</artifactId>
+				<version>${spotless.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>apply</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<java>
+						<includes>
+							<include>src/main/java/**/*.java</include>
+							<include>src/test/java/**/*.java</include>
+							<include>src/integration-test/java/**/*.java</include>
+						</includes>
+						<toggleOffOn/>
+						<palantirJavaFormat/>
+						<replaceRegex>
+							<name>Remove wildcard imports</name>
+							<searchRegex>import\s+[^\*\s]+\*;(\r\n|\r|\n)</searchRegex>
+							<replacement>$1</replacement>
+						</replaceRegex>
+						<removeUnusedImports/>
+						<trimTrailingWhitespace/>
+						<endWithNewline/>
+					</java>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

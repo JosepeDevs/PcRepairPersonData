@@ -1,0 +1,29 @@
+services:
+  oracle:
+    image: gvenzl/oracle-xe:18.4.0
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: Qpwoeiruty
+      ORACLE_DATABASE: testdb
+      APP_USER: test_user
+      APP_USER_PASSWORD: test_password
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'SELECT 1 FROM dual;' | sqlplus -s test_user/test_password@//localhost:1521/testdb"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  init_database:
+    image: oraclelinux:7-slim
+    depends_on:
+      oracle:
+        condition: service_healthy
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: [ "/bin/sh", "/scripts/init_database.sh" ]
+
+volumes:
+  oracle-data:

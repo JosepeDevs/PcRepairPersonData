@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+/docker-jpd/scripts/logs/
+/docker-jpd/scripts/logs/
+/docker-jpd/scripts/logs/
+/docker-jpd/scripts/logs/
+/docker-jpd/scripts/logs/

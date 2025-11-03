@@ -1,0 +1,17 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.  
+The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)  
+and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## Unreleased
+
+
+## Added
+
+- Added docker support and oracle database profile
+
+
+## [Previous Versions]
+
+For details on versions prior to 0.0.1, refer to commit history.
