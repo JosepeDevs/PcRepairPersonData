@@ -1,8 +1,5 @@
 package com.josepedevs.infra.persistence.dto;
 
-import com.josepedevs.domain.dto.valueobjects.MetadataVo;
-import com.josepedevs.domain.dto.valueobjects.NameVo;
-import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -20,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "persons")
-public class PersonData {
+public class PersonDataDao {
 
     // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_user")
@@ -37,17 +34,10 @@ public class PersonData {
     @Column(name = "metadata", nullable = false)
     private String metadata;
 
-    public PersonData(UUID idPerson, String name, String nidPassport, String metadata) {
+    public PersonDataDao(UUID idPerson, String name, String nidPassport, String metadata) {
         this.idPerson = idPerson;
         this.nidPassport = nidPassport;
         this.name = name;
         this.metadata = metadata;
-    }
-
-    public PersonData(UUID idPerson, NameVo name, NidPassportVo nidPassport, MetadataVo metadata) {
-        this.idPerson = idPerson;
-        this.nidPassport = nidPassport.getNidPassport();
-        this.name = name.getName();
-        this.metadata = metadata.getMetadata();
     }
 }

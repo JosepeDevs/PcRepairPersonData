@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class PersonDataDto {
-
     private String id;
     private String name;
     private String nidPassport;

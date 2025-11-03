@@ -1,10 +1,10 @@
 package com.josepedevs.application;
 
+import com.josepedevs.application.service.PersonFinderService;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.exceptions.PersonNotFoundException;
 import com.josepedevs.domain.repository.PersonRepository;
-import com.josepedevs.domain.service.PersonFinderService;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

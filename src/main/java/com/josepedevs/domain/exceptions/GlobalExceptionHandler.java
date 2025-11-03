@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
-@ControllerAdvice // This annotation applies the exception handler across the whole application = global exception
-// handler. This class can contain multiple methods, each annotated with @ExceptionHandler, to handle
-// different types of exceptions.
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     // MY CUSTOMIZED EXCEPTIONS
 
     @ExceptionHandler(MyRuntimeException.class)
-    public ResponseEntity<Map<String,String>> handleMyExceptions(MyRuntimeException ex) {
+    public ResponseEntity<Map<String, String>> handleMyExceptions(MyRuntimeException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put(
                 "The attribute with name: '" + ex.getIllegalAttributeName() + "' was not valid",
@@ -29,14 +27,14 @@ public class GlobalExceptionHandler {
     // BUILT-IN EXCEPTIONS HANDLING TO NOW SHOW STACKTRACE
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String,String>> globalExceptionManager(Exception ex) {
+    public ResponseEntity<Map<String, String>> globalExceptionManager(Exception ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put("Exception", "A problem happened.");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
-    public ResponseEntity<Map<String,String>> myNoResourceFoundException(NoResourceFoundException ex) {
+    public ResponseEntity<Map<String, String>> myNoResourceFoundException(NoResourceFoundException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put(
                 "NoResourceFoundException", "The resouce you were looking for does not exist or has been removed.");
@@ -44,7 +42,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(JpaSystemException.class)
-    public ResponseEntity<Map<String,String>> jpaException(JpaSystemException ex) {
+    public ResponseEntity<Map<String, String>> jpaException(JpaSystemException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put(
                 "PersistException",
@@ -53,7 +51,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<Map<String,String>> myOwnHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<Map<String, String>> myOwnHttpMessageNotReadableException(
+            HttpMessageNotReadableException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put(
                 "Http Error",
@@ -62,7 +61,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<Map<String,String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put(
                 "Illegal argument error",
@@ -71,7 +70,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = NullPointerException.class)
-    public ResponseEntity<Map<String,String>> handleNullPointerException(NullPointerException ex) {
+    public ResponseEntity<Map<String, String>> handleNullPointerException(NullPointerException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put("Null resource error", "You tried to use a null resource");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);

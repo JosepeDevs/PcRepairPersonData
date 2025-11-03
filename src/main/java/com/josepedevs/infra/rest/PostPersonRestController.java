@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController // Spring will automatically send responses as JSON, no need to set that up
+@RestController
 @AllArgsConstructor
 public class PostPersonRestController {
 

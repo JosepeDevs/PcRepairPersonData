@@ -6,14 +6,12 @@ import lombok.Getter;
 @Getter
 public class NameVo {
 
-    String name;
+    private final String name;
 
     public NameVo(String name) {
-
         if (name.length() >= 255) {
             throw new LongInputException("The name length was too much, if saved, it has been truncated.", "name");
         }
-
         this.name = name;
     }
 }
