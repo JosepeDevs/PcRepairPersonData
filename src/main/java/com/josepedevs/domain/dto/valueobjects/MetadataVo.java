@@ -5,10 +5,9 @@ import lombok.Getter;
 @Getter
 public class MetadataVo {
 
-    String metadata;
+    private final String metadata;
 
     public MetadataVo(String metadata) {
-
         this.metadata = metadata;
     }
 }

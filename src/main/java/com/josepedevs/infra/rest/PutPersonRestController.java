@@ -3,9 +3,8 @@ package com.josepedevs.infra.rest;
 import com.josepedevs.application.EditPersonData;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -23,25 +22,20 @@ public class PutPersonRestController {
     private final EditPersonData editPerson;
 
     @PutMapping("/{id}")
-    public ResponseEntity<Boolean> updatePerson(@PathVariable("id") String id, @RequestBody UpdatePesonRequestDto person) {
+    public ResponseEntity<Boolean> updatePerson(
+            @PathVariable("id") String id, @RequestBody UpdatePersonRequestDto person) {
         final var personId = UUID.fromString(id);
-        editPerson.updatePerson(
-                personId,
-                person.getName(),
-                person.getNidPassport()); // Implement the update logic in your service layer
-
+        editPerson.updatePerson(personId, person.getName(), person.getNidPassport());
         // this will create an event  (in the future), instead of a return (CQRS)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
     }
 }
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
-class UpdatePesonRequestDto {
-
+class UpdatePersonRequestDto {
     private String name;
     private String nidPassport;
 }

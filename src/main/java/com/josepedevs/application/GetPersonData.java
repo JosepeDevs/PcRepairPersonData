@@ -1,9 +1,9 @@
 package com.josepedevs.application;
 
+import com.josepedevs.application.service.PersonFinderService;
 import com.josepedevs.domain.exceptions.PersonNotFoundException;
 import com.josepedevs.domain.repository.PersonRepository;
-import com.josepedevs.domain.service.PersonFinderService;
-import com.josepedevs.infra.persistence.dto.PersonData;
+import com.josepedevs.infra.persistence.dto.PersonDataDao;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,14 +20,13 @@ public class GetPersonData {
 
     private PersonFinderService personFinder;
 
-    public PersonData getPerson(UUID idPerson) {
-        Optional<PersonData> existentPerson = personFinder.findById(idPerson);
+    public PersonDataDao getPerson(UUID idPerson) {
+        Optional<PersonDataDao> existentPerson = personFinder.findById(idPerson);
         return existentPerson.orElseThrow(
                 () -> new PersonNotFoundException("The person with the searched id was not found", "idPerson"));
     }
 
-    public List<PersonData> getAll() {
-        // el caso de uso llama al repositorio
+    public List<PersonDataDao> getAll() {
         log.info("calling repository");
         return personRepository.readAll();
     }

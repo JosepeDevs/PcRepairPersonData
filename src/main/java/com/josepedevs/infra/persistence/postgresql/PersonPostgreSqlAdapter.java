@@ -2,7 +2,7 @@ package com.josepedevs.infra.persistence.postgresql;
 
 import com.josepedevs.domain.repository.PersonRepository;
 import com.josepedevs.infra.persistence.PersonJpaRepository;
-import com.josepedevs.infra.persistence.dto.PersonData;
+import com.josepedevs.infra.persistence.dto.PersonDataDao;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -19,10 +19,10 @@ public class PersonPostgreSqlAdapter implements PersonRepository {
         this.personJpaRepository = personJpaRepository;
     }
 
-	//********** Commands **********//
+    // ********** Commands **********//
 
     @Override
-    public PersonData createPersonData(PersonData person) {
+    public PersonDataDao createPersonData(PersonDataDao person) {
         personJpaRepository.save(person);
         // after save it should contain the UUID, in the future this will return bool, and the event will publish the
         // UUID
@@ -30,8 +30,8 @@ public class PersonPostgreSqlAdapter implements PersonRepository {
     }
 
     @Override
-    public boolean updatePersonData(PersonData person) {
-        PersonData updatedPerson = personJpaRepository.save(person);
+    public boolean updatePersonData(PersonDataDao person) {
+        PersonDataDao updatedPerson = personJpaRepository.save(person);
         return updatedPerson.getIdPerson() != null
                 && updatedPerson.getIdPerson().equals(person.getIdPerson());
     }
@@ -41,14 +41,14 @@ public class PersonPostgreSqlAdapter implements PersonRepository {
         personJpaRepository.deleteById(idPerson);
     }
 
-	//********** queries **********//
+    // ********** queries **********//
     @Override
-    public Optional<PersonData> searchPersonData(UUID idPerson) {
+    public Optional<PersonDataDao> searchPersonData(UUID idPerson) {
         return personJpaRepository.findById(idPerson);
     }
 
     @Override
-    public List<PersonData> readAll() {
+    public List<PersonDataDao> readAll() {
         return personJpaRepository.findAll();
     }
 }

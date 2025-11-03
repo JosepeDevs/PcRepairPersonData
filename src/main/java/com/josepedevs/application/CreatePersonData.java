@@ -5,7 +5,7 @@ import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.repository.PersonRepository;
-import com.josepedevs.infra.persistence.dto.PersonData;
+import com.josepedevs.infra.persistence.dto.PersonDataDao;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -16,9 +16,9 @@ public class CreatePersonData {
 
     private final PersonRepository personRepository;
 
-    public PersonData createPerson(PersonDataDto person) {
+    public PersonDataDao createPerson(PersonDataDto person) {
 
-        PersonData newPerson = PersonData.builder()
+        PersonDataDao newPerson = PersonDataDao.builder()
                 .idPerson(UUID.fromString(person.getId()))
                 .name(new NameVo(person.getName()).getName())
                 .nidPassport(new NidPassportVo(person.getNidPassport()).getNidPassport())
