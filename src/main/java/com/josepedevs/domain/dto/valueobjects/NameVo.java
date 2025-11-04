@@ -14,6 +14,4 @@ public class NameVo {
         }
         this.name = name;
     }
-
-
 }

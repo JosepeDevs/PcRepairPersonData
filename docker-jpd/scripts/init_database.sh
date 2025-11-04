@@ -17,7 +17,7 @@ done
 
 # Ejecutar scripts SQL iniciales
 echo "Creating tablespaces..."
-sqlplus sys/Qpwoeiruty@//oracle:1521/testdb as sysdba @/scripts/createTablespaces.sql;
+sqlplus sys/Fhbkilusoeiruty@//oracle:1521/testdb as sysdba @/scripts/createTablespaces.sql;
 
 echo "Creating schema..."
 sqlplus test_user/test_password@//oracle:1521/testdb @/scripts/schema.sql;
@@ -27,8 +27,8 @@ load_csv_with_sqlloader() {
   echo "original table name is: $original_table_name"
   table_name=$(echo "$1" | sed 's/_DATA//')  # Elimina el prefijo "_DATA"
   echo "table name is: $table_name"
-  control_file="/scripts/${original_table_name}.ctl"
-  ldr_file="/scripts/${original_table_name}.ldr"
+  control_file="/scripts/database-rows/${original_table_name}.ctl"
+  ldr_file="/scripts/database-rows/${original_table_name}.ldr"
   log_file="/scripts/logs/${table_name}.log"
   bad_file="/scripts/logs/${table_name}.bad"
 
@@ -39,10 +39,10 @@ load_csv_with_sqlloader() {
     echo "Processing: $control_file -> Table: $table_name"
 
     ## Replace infile path in control file
-    sed -i "s|INFILE '.*' .*|INFILE '/scripts/${original_table_name}.ldr' \"str '{EOL}'\"|" "$control_file"
+    sed -i "s|INFILE '.*' .*|INFILE '/scripts/database-rows/${original_table_name}.ldr' \"str '{EOL}'\"|" "$control_file"
 
     ## Fix path in ldr file
-    sed -i "s|\|$table_name|\|/scripts/$table_name|g" "$ldr_file"
+    sed -i "s|\|$table_name|\|/scripts/database-rows/$table_name|g" "$ldr_file"
 
     ## Load data using SQL*Loader
     sqlldr test_user/test_password@//oracle:1521/testdb control=$control_file log=$log_file bad=$bad_file

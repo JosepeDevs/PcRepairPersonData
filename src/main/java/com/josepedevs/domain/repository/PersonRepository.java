@@ -1,21 +1,22 @@
 package com.josepedevs.domain.repository;
 
-import com.josepedevs.domain.entities.PersonData;
+import com.josepedevs.domain.entities.PersonDataDomain;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public interface PersonRepository {
 
     // ********** queries **********//
-    Optional<PersonData> searchPersonData(String idPerson);
+    Optional<PersonDataDomain> searchPersonData(String idPerson);
 
-    List<PersonData> readAll();
+    List<PersonDataDomain> readAll();
 
     // ********** Commands **********//
-    boolean updatePersonData(PersonData person);
+    boolean updatePersonData(PersonDataDomain person);
 
     void deleteHardPersonData(String idPerson);
 
-    PersonData createPersonData(PersonData person);
+    void logicalDeletePersonData(String idPerson);
+
+    PersonDataDomain createPersonData(PersonDataDomain person);
 }

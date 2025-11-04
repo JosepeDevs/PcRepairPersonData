@@ -1,9 +1,10 @@
 package com.josepedevs.infra.persistence.jpa.mapper;
 
-import com.josepedevs.domain.entities.PersonData;
+import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.persistence.jpa.dto.PersonDataDao;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 
 @Mapper(
@@ -12,8 +13,8 @@ import org.mapstruct.NullValueCheckStrategy;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface JpaPersonMapper {
 
-    PersonData map(PersonDataDao personDataDao);
+    PersonDataDomain map(PersonDataDao personDataDao);
 
-    PersonDataDao map(PersonData personData);
-
+    @Mapping(target = "deleted", constant = "false")
+    PersonDataDao map(PersonDataDomain personDataDomain);
 }

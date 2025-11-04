@@ -4,11 +4,12 @@ import com.josepedevs.domain.dto.PersonDataDto;
 import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
-import com.josepedevs.domain.entities.PersonData;
-import com.josepedevs.infra.rest.dto.PersonDto;
+import com.josepedevs.domain.entities.PersonDataDomain;
+import com.josepedevs.infra.rest.dto.RestPersonDto;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.NullValueCheckStrategy;
 
 @Mapper(
@@ -17,37 +18,48 @@ import org.mapstruct.NullValueCheckStrategy;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface RestPersonMapper {
 
-    @Mapping(target = "idPerson", ignore = true)
-    PersonData map(PersonDataDto personDataDto);
-
-    @Mapping(target = "idPerson", ignore = true)
-    PersonData map(PersonDto personDto);
+    @Mapping(target = "idPerson", source = "id")
+    @Mapping(target = "nidPassport", source = "nidPassport", qualifiedByName = "mapToStringNid")
+    @Mapping(target = "metadata", source = "metadata", qualifiedByName = "mapToStringMetadata")
+    @Mapping(target = "name", source = "name", qualifiedByName = "mapToStringName")
+    PersonDataDomain map(PersonDataDto personDataDto);
 
     @Mapping(target = "id", source = "idPerson")
-    PersonDataDto map(PersonData personData);
+    RestPersonDto map(PersonDataDomain restPersonDto);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "nidPassport", source = "nidPassport", qualifiedByName = "mapNid")
+    @Mapping(target = "metadata", source = "metadata", qualifiedByName = "mapMetadata")
+    @Mapping(target = "name", source = "name", qualifiedByName = "mapName")
+    PersonDataDto mapToValidate(RestPersonDto restPersonDto);
+
+    @Named("mapName")
     default NameVo mapName(String value) {
         return new NameVo(value);
     }
 
+    @Named("mapMetadata")
     default MetadataVo mapMetadata(String value) {
         return new MetadataVo(value);
     }
 
+    @Named("mapNid")
     default NidPassportVo mapNid(String value) {
         return new NidPassportVo(value);
     }
 
-    default String map(NameVo name){
+    @Named("mapToStringName")
+    default String map(NameVo name) {
         return name.getName();
     }
 
-    default String map(MetadataVo metadata){
+    @Named("mapToStringMetadata")
+    default String map(MetadataVo metadata) {
         return metadata.getMetadata();
     }
 
-    default String map(NidPassportVo nidPassportVo){
+    @Named("mapToStringNid")
+    default String map(NidPassportVo nidPassportVo) {
         return nidPassportVo.getNidPassport();
     }
-
 }

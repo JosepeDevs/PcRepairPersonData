@@ -1,9 +1,12 @@
 package com.josepedevs.infra.rest;
 
-import java.util.UUID;
-import java.util.function.Function;
-
-import com.josepedevs.domain.entities.PersonData;
+import com.josepedevs.domain.dto.PersonDataDto;
+import com.josepedevs.domain.dto.valueobjects.MetadataVo;
+import com.josepedevs.domain.dto.valueobjects.NameVo;
+import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
+import com.josepedevs.domain.entities.PersonDataDomain;
+import com.josepedevs.infra.rest.mapper.RestPersonMapper;
+import java.util.function.Consumer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,32 +21,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController // Spring will automatically send responses as JSON, no need to set that up
+@RestController
 @RequestMapping("persons")
 @AllArgsConstructor
 @Slf4j
 public class PutPersonRestController {
 
-    private final Function<PersonData,PersonData> putPersonUseCase;
+    private final Consumer<PersonDataDomain> putPersonUseCase;
+    private final RestPersonMapper restPersonMapper;
     private final Environment environment;
-
-
-
-    //TODO check why it created a new entry instead of saying 404 cannot be updated
-
-
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Boolean> updatePerson(
             @PathVariable("id") String id, @RequestBody UpdatePersonRequestDto person) {
-        log.info("Received in port {} request to update person: {} with id {}",  environment.getProperty("local.server.port"), person, id);
-        putPersonUseCase.apply(PersonData.builder()
-                        .idPerson(id)
-                        .name(person.getName())
-                        .nidPassport(person.getNidPassport())
-                        .metadata(person.getMetadata())
-                .build());
+        log.info(
+                "Received in port {} request to update person: {} with id {}",
+                environment.getProperty("local.server.port"),
+                person,
+                id);
+        putPersonUseCase.accept(restPersonMapper.map(PersonDataDto.builder()
+                .id(id)
+                .name(new NameVo(person.getName()))
+                .metadata(new MetadataVo(person.getMetadata()))
+                .nidPassport(new NidPassportVo(person.getNidPassport()))
+                .build()));
         // this will create an event  (in the future), instead of a return (CQRS)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
     }

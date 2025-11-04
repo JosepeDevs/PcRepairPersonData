@@ -1,27 +1,24 @@
 package com.josepedevs.application;
 
-import com.josepedevs.application.service.IdGeneratorService;
 import com.josepedevs.domain.dto.valueobjects.IdVo;
 import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
-import com.josepedevs.domain.entities.PersonData;
+import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.repository.PersonRepository;
-
-import java.util.function.Function;
-
+import java.util.function.UnaryOperator;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class PostPersonUseCaseImpl implements Function<PersonData, PersonData> {
+public class PostPersonUseCaseImpl implements UnaryOperator<PersonDataDomain> {
 
     private final PersonRepository personRepository;
 
     @Override
-    public PersonData apply(PersonData person) {
-        PersonData newPerson = PersonData.builder()
+    public PersonDataDomain apply(PersonDataDomain person) {
+        PersonDataDomain newPerson = PersonDataDomain.builder()
                 .idPerson(new IdVo().getId())
                 .name(new NameVo(person.getName()).getName())
                 .nidPassport(new NidPassportVo(person.getNidPassport()).getNidPassport())

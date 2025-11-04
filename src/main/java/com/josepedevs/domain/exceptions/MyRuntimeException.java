@@ -32,12 +32,4 @@ public class MyRuntimeException extends RuntimeException {
         myErrorMessage = null;
         illegalAttributeName = null;
     }
-
-    public MyRuntimeException(String message, Throwable cause, String myErrorMessage, String illegalAttributeName, DomainErrorStatus status) {
-        super(message, cause);
-        this.myErrorMessage = myErrorMessage;
-        this.illegalAttributeName = illegalAttributeName;
-        this.status = status;
-    }
-
 }

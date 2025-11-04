@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Execute Oracle" type="Application" factoryName="Application">
+  <configuration default="false" name="Oracle 8080" type="Application" factoryName="Application">
     <envs>
       <env name="EUREKA_INSTANCE_HOSTNAME" value="localhost" />
       <env name="SERVER_PORT" value="8080" />

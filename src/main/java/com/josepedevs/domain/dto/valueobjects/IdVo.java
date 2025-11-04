@@ -1,9 +1,8 @@
 package com.josepedevs.domain.dto.valueobjects;
 
-import lombok.Getter;
-
 import java.time.Instant;
 import java.util.UUID;
+import lombok.Getter;
 
 @Getter
 public class IdVo {
