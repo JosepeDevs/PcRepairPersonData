@@ -4,7 +4,7 @@ services:
     ports:
       - "1521:1521"
     environment:
-      ORACLE_PASSWORD: Qpwoeiruty
+      ORACLE_PASSWORD: Fhbkilusoeiruty
       ORACLE_DATABASE: testdb
       APP_USER: test_user
       APP_USER_PASSWORD: test_password

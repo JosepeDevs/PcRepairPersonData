@@ -7,7 +7,7 @@ public class PersonNotFoundException extends MyRuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public PersonNotFoundException(String myErrorMessage, String illegalAttributeName) {
-        super(myErrorMessage, illegalAttributeName);
+    public PersonNotFoundException(String myErrorMessage, String illegalAttributeName, DomainErrorStatus status) {
+        super(myErrorMessage, illegalAttributeName, status);
     }
 }

@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         errorDetails.put(
                 "The attribute with name: '" + ex.getIllegalAttributeName() + "' was not valid",
                 ex.getMyErrorMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+        return ResponseEntity.status(ex.getStatus().getStatus()).body(errorDetails);
     }
 
     // BUILT-IN EXCEPTIONS HANDLING TO NOW SHOW STACKTRACE
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> globalExceptionManager(Exception ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put("Exception", "A problem happened.");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
@@ -38,7 +38,7 @@ public class GlobalExceptionHandler {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put(
                 "NoResourceFoundException", "The resouce you were looking for does not exist or has been removed.");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorDetails);
+        return ResponseEntity.status(ex.getStatusCode()).body(errorDetails);
     }
 
     @ExceptionHandler(JpaSystemException.class)
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
         errorDetails.put(
                 "PersistException",
                 "There was a problem when persisting your data, possible action: review name of attributes sent.");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
@@ -66,13 +66,13 @@ public class GlobalExceptionHandler {
         errorDetails.put(
                 "Illegal argument error",
                 "The argument or parameter that was in use or used was not expected (illegal argument).");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 
     @ExceptionHandler(value = NullPointerException.class)
     public ResponseEntity<Map<String, String>> handleNullPointerException(NullPointerException ex) {
         Map<String, String> errorDetails = new HashMap<>();
         errorDetails.put("Null resource error", "You tried to use a null resource");
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 }
