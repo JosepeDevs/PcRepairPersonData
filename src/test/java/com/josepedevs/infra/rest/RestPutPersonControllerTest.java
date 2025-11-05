@@ -1,0 +1,66 @@
+package com.josepedevs.infra.rest;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.josepedevs.domain.dto.PersonDataDto;
+import com.josepedevs.domain.entities.PersonDataDomain;
+import com.josepedevs.infra.rest.dto.PersonRequestDto;
+import com.josepedevs.infra.rest.mapper.RestPersonMapper;
+import java.util.function.Consumer;
+import org.jeasy.random.EasyRandom;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.core.env.Environment;
+
+@ExtendWith(MockitoExtension.class)
+class RestPutPersonControllerTest {
+
+    private final EasyRandom easyRandom = PREPARED_EASY_RANDOM;
+
+    private RestPutPersonController controller;
+
+    @Mock
+    private Consumer<PersonDataDomain> putPersonUseCase;
+
+    @Mock
+    private RestPersonMapper mapper;
+
+    @Mock
+    private Environment environment;
+
+    @BeforeEach
+    void setUp() {
+        controller = new RestPutPersonController(putPersonUseCase, mapper, environment);
+    }
+
+    @Test
+    void updatePerson_GivenValidRequest_ThenReturnsNoContentAndTrue() {
+
+        final var id = easyRandom.nextObject(String.class);
+        final var inputPerson = easyRandom.nextObject(PersonRequestDto.class).toBuilder()
+                .nidPassport("74747474W")
+                .build();
+        final var domainPerson = easyRandom.nextObject(PersonDataDomain.class).toBuilder()
+                .name(inputPerson.getName())
+                .metadata(inputPerson.getMetadata())
+                .nidPassport(inputPerson.getNidPassport())
+                .build();
+
+        when(environment.getProperty(any())).thenReturn("8080");
+
+        when(mapper.map(any(PersonDataDto.class))).thenReturn(domainPerson);
+
+        final var result = this.controller.updatePerson(id, inputPerson);
+
+        assertEquals(Boolean.TRUE, result.getBody());
+        verify(this.putPersonUseCase, times(1)).accept(any());
+    }
+}

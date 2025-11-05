@@ -11,6 +11,7 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## Added
 
 - Added sonarQube docker-compose and instructions for use in readme
+- Increased tested coverage
 
 ## Changed
 

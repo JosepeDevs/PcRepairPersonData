@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @AllArgsConstructor
-public class GetAllPersonsRestController {
+public class RestGetAllPersonsController {
 
     private final Supplier<List<PersonDataDomain>> getAllPersonsUseCase;
     private final RestPersonMapper restPersonMapper;

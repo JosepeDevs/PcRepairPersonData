@@ -1,6 +1,6 @@
 spring:
   application:
-    name: PersonManager
+    name: PERSONMANAGER
   banner:
     location: JPD.txt
   jpa:
