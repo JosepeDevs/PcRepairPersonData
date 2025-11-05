@@ -21,13 +21,14 @@ public class PutPersonUseCaseImpl implements Consumer<PersonDataDomain> {
 
     @Override
     public void accept(PersonDataDomain personDataDomain) {
-        final var optPerson = personFinder.findById(personDataDomain.getIdPerson());
+        final var optPerson = personFinder.findByIdAndIncludeDeleted(personDataDomain.getIdPerson(), true);
         final var person = optPerson.orElseThrow(() -> new PersonNotFoundException(
                 "The person with the searched id was not found", "idPerson", DomainErrorStatus.NOT_FOUND));
-        person.toBuilder()
+        final var newPerson = person.toBuilder()
                 .name(new NameVo(personDataDomain.getName()).getName())
                 .nidPassport(new NidPassportVo(person.getNidPassport()).getNidPassport())
-                .metadata(new MetadataVo(person.getMetadata()).getMetadata());
-        personRepository.updatePersonData(person);
+                .metadata(new MetadataVo(person.getMetadata()).getMetadata())
+                .build();
+        personRepository.updatePersonData(newPerson);
     }
 }

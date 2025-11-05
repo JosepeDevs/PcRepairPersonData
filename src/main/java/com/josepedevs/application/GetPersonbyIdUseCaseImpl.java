@@ -18,7 +18,7 @@ public class GetPersonbyIdUseCaseImpl implements Function<String, PersonDataDoma
 
     @Override
     public PersonDataDomain apply(String idPerson) {
-        final var existentPerson = personFinder.findById(idPerson);
+        final var existentPerson = personFinder.findByIdAndIncludeDeleted(idPerson, false);
         return existentPerson.orElseThrow(() -> new PersonNotFoundException(
                 "The person with the searched id was not found", "idPerson", DomainErrorStatus.NOT_FOUND));
     }

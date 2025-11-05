@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface PersonRepository {
 
     // ********** queries **********//
-    Optional<PersonDataDomain> searchPersonData(String idPerson);
+    Optional<PersonDataDomain> searchPersonDataByIdAndDeleted(String idPerson, boolean isIncludeDeleted);
 
     List<PersonDataDomain> readAll();
 

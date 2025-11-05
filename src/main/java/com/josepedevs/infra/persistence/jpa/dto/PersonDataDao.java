@@ -22,7 +22,7 @@ public class PersonDataDao {
 
     @Column(name = "id_user")
     @Id
-    private String idPerson;
+    private String idUser;
 
     @Column(name = "name")
     private String name;

@@ -22,8 +22,6 @@ public class GetAllPersonsRestController {
     private final RestPersonMapper restPersonMapper;
     private final Environment environment;
 
-    // TODO not return deleted cases
-
     @GetMapping("persons")
     public ResponseEntity<List<RestPersonDto>> getAll() {
         log.info("Received in port {} the request to get all persons", environment.getProperty("local.server.port"));
