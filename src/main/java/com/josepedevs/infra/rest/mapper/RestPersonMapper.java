@@ -27,12 +27,6 @@ public interface RestPersonMapper {
     @Mapping(target = "id", source = "idPerson")
     RestPersonDto map(PersonDataDomain restPersonDto);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "nidPassport", source = "nidPassport", qualifiedByName = "mapNid")
-    @Mapping(target = "metadata", source = "metadata", qualifiedByName = "mapMetadata")
-    @Mapping(target = "name", source = "name", qualifiedByName = "mapName")
-    PersonDataDto mapToValidate(RestPersonDto restPersonDto);
-
     @Named("mapName")
     default NameVo mapName(String value) {
         return new NameVo(value);

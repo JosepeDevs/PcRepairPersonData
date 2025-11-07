@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @AllArgsConstructor
-public class GetPersonByIdRestController {
+public class RestGetPersonByIdController {
 
     private final Function<String, PersonDataDomain> getPersonByIdUseCase;
     private final RestPersonMapper restPersonMapper;
 
     private final Environment environment;
-
-    // TODO not return deleted cases
 
     @GetMapping(value = "persons/{id}")
     public ResponseEntity<RestPersonDto> getPerson(@PathVariable String id) {

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: PersonManager
+    name: PERSONMANAGER
   banner:
     location: JPD.txt
   jpa:
@@ -14,7 +14,11 @@ server:
 logging:
   level:
    "[org.springframework.web]": INFO
-   
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info,health
 eureka:
   client:
     fetch-registry: true

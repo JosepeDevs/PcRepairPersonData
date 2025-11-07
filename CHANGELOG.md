@@ -6,6 +6,25 @@ and adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.3.0] - 2025-11-07
+
+## Added
+
+- Added sonarQube docker-compose and instructions for use in readme
+- Increased tested coverage.
+- IT for all persons operations.
+- Expose actuator info and health.
+- Jacoco for report creation of test coverage (for sonarqube)
+
+## Changed
+
+- Delete and FindById take into account if is already deleted (soft).
+- Post and put person now returns dto of created/updated person.
+
+## Fixed
+
+- Update now applies the provided data instead of only re-activating the user.
+
 ## [0.2.0] - 2025-11-04
 
 ## Added

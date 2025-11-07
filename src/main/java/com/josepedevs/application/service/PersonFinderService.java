@@ -12,7 +12,7 @@ public class PersonFinderService {
 
     private final PersonRepository personRepository;
 
-    public Optional<PersonDataDomain> findById(String id) {
-        return personRepository.searchPersonData(id);
+    public Optional<PersonDataDomain> findByIdAndIncludeDeleted(String id, boolean isIncludeDeleted) {
+        return personRepository.searchPersonDataByIdAndDeleted(id, isIncludeDeleted);
     }
 }

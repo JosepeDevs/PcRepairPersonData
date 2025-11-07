@@ -1,37 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.6</version>
+		<version>3.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.josepedevs</groupId>
 	<artifactId>UserDataManager</artifactId>
-	<version>0.2.0-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<name>TallerPC</name>
 	<description>UserDataManager</description>
+
 	<properties>
 		<java.version>21</java.version>
-		<spotless.version>3.0.0</spotless.version>
+		<hibernate-jpamodelgen.version>7.1.6.Final</hibernate-jpamodelgen.version>
+		<ojdbc11.version>23.26.0.0.0</ojdbc11.version>
 		<mapstruct.version>1.6.3</mapstruct.version>
 		<lombok.version>1.18.42</lombok.version>
 		<lombok.mapstruct.binding.version>0.2.0</lombok.mapstruct.binding.version>
-		<hibernate-jpamodelgen.version>7.1.6.Final</hibernate-jpamodelgen.version>
-		<ojdbc11.version>23.26.0.0.0</ojdbc11.version>
-		<spring-cloud-starter-netflix.version>4.0.4</spring-cloud-starter-netflix.version>
-		<spring-cloud-starter-openfeign>4.1.1</spring-cloud-starter-openfeign>
+		<jeasy.version>5.0.0</jeasy.version>
+		<spotless.version>3.0.0</spotless.version>
+		<spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
+		<jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
 	</properties>
-	
+
+	<!-- Spring Cloud BOM -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-dependencies -->
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud-dependencies.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
-		
+		<!-- Spring Boot Starters (no version needed, provided by parent, included to make explicit dependencies used) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -43,7 +63,14 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Database -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
@@ -55,51 +82,65 @@
 			<artifactId>ojdbc11</artifactId>
 			<version>${ojdbc11.version}</version>
 		</dependency>
-		
+
+		<!-- Spring Cloud -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
-		
+
+		<!-- Lombok and MapStruct -->
 		<dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-		    <version>${spring-cloud-starter-netflix.version}</version>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
 		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-starter-openfeign</artifactId>
-		    <version>${spring-cloud-starter-openfeign}</version>
-		</dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
+
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
 			<version>${mapstruct.version}</version>
 		</dependency>
 
+		<!--Testing-->
+		<dependency>
+			<groupId>org.jeasy</groupId>
+			<artifactId>easy-random-core</artifactId>
+			<version>${jeasy.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
-<!-- ADDDING PROFILES -->
+
+<!-- Profiles -->
 	<profiles>
-	    <profile>
-	        <id>PROAWS</id>
-	        <properties>
-	            <activatedProperties>proaws</activatedProperties>
-	        </properties>
-	    </profile>
-	    <profile>
-	        <id>DEVNEON</id>
-	        <properties>
-	            <activatedProperties>devneon</activatedProperties>
-	        </properties>
-	    </profile>
+		<profile>
+			<id>PROAWS</id>
+			<properties>
+				<activatedProperties>proaws</activatedProperties>
+			</properties>
+		</profile>
+		<profile>
+			<id>DEVNEON</id>
+			<properties>
+				<activatedProperties>devneon</activatedProperties>
+			</properties>
+		</profile>
 		<profile>
 			<id>ORACLE</id>
 			<properties>
@@ -107,9 +148,11 @@
 			</properties>
 		</profile>
 	</profiles>
-<!-- ADDDING PLUGINS -->
+
+	<!-- Build Plugins -->
 	<build>
 		<plugins>
+			<!--generates mappers Impl and allows usage of lombok-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -140,6 +183,29 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
+			<!--generates reports of coverage (used by sonarqube)-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--Plugin to clean up and unify styling over all code-->
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
@@ -156,7 +222,7 @@
 						<includes>
 							<include>src/main/java/**/*.java</include>
 							<include>src/test/java/**/*.java</include>
-							<include>src/integration-test/java/**/*.java</include>
+							<include>src/integration-tests/java/**/*.java</include>
 						</includes>
 						<toggleOffOn/>
 						<palantirJavaFormat/>

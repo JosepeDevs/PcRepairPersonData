@@ -2,7 +2,6 @@ package com.josepedevs.infra.persistence.jpa.postgresql;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.exceptions.DomainErrorStatus;
-import com.josepedevs.domain.exceptions.MyRuntimeException;
 import com.josepedevs.domain.exceptions.PersonNotFoundException;
 import com.josepedevs.domain.repository.PersonRepository;
 import com.josepedevs.infra.persistence.jpa.mapper.JpaPersonMapper;
@@ -18,10 +17,12 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
 
+    private static final String PERSON_NOT_FOUND_OR_IS_DELETED = "Person not found or is deleted";
+
     private final JpaPersonRepository jpaPersonRepository;
     private final JpaPersonMapper jpaPersonMapper;
 
-    // ********** Commands **********//
+    // ********** COMMANDS **********//
 
     @Override
     public PersonDataDomain createPersonData(PersonDataDomain person) {
@@ -30,10 +31,8 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
     }
 
     @Override
-    public boolean updatePersonData(PersonDataDomain person) {
-        final var updatedPerson = jpaPersonRepository.save(jpaPersonMapper.map(person));
-        return updatedPerson.getIdPerson() != null
-                && updatedPerson.getIdPerson().equals(person.getIdPerson());
+    public PersonDataDomain updatePersonData(PersonDataDomain person) {
+        return jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
     }
 
     @Override
@@ -43,9 +42,9 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
 
     @Override
     public void logicalDeletePersonData(String idPerson) {
-        final var optPerson = searchPersonData(idPerson);
+        final var optPerson = searchPersonDataByIdAndDeleted(idPerson, false);
         if (optPerson.isEmpty()) {
-            throw new PersonNotFoundException("Person not found", "id", DomainErrorStatus.NOT_FOUND);
+            throw new PersonNotFoundException(PERSON_NOT_FOUND_OR_IS_DELETED, "id", DomainErrorStatus.NOT_FOUND);
         }
         final var person = optPerson.get();
         final var personDao =
@@ -53,17 +52,28 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
         jpaPersonMapper.map(jpaPersonRepository.save(personDao));
     }
 
-    // ********** queries **********//
+    // ********** QUERIES **********//
+
     @Override
-    public Optional<PersonDataDomain> searchPersonData(String idPerson) {
+    public Optional<PersonDataDomain> searchPersonDataByIdAndDeleted(String idPerson, boolean isIncludeDeleted) {
+        if (isIncludeDeleted) {
+            return Optional.ofNullable(jpaPersonRepository
+                    .findByIdUser(idPerson)
+                    .map(jpaPersonMapper::map)
+                    .orElseThrow(() -> new PersonNotFoundException(
+                            PERSON_NOT_FOUND_OR_IS_DELETED, "id", DomainErrorStatus.NOT_FOUND)));
+        }
         return Optional.ofNullable(jpaPersonRepository
-                .findById(idPerson)
+                .findByIdUserAndDeleted(idPerson, false)
                 .map(jpaPersonMapper::map)
-                .orElseThrow(() -> new MyRuntimeException("Person not found", "id", DomainErrorStatus.NOT_FOUND)));
+                .orElseThrow(() -> new PersonNotFoundException(
+                        PERSON_NOT_FOUND_OR_IS_DELETED, "id", DomainErrorStatus.NOT_FOUND)));
     }
 
     @Override
     public List<PersonDataDomain> readAll() {
-        return jpaPersonRepository.findAll().stream().map(jpaPersonMapper::map).toList();
+        return jpaPersonRepository.findAllByDeleted(false).stream()
+                .map(jpaPersonMapper::map)
+                .toList();
     }
 }

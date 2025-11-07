@@ -17,6 +17,8 @@ import org.springframework.stereotype.Repository;
 @AllArgsConstructor
 public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
 
+    private static final String PERSON_NOT_FOUND = "Person not found";
+
     private final JpaPersonRepository jpaPersonRepository;
     private final JpaPersonMapper jpaPersonMapper;
 
@@ -29,10 +31,8 @@ public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
     }
 
     @Override
-    public boolean updatePersonData(PersonDataDomain person) {
-        PersonDataDomain updatedPerson = jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
-        return updatedPerson.getIdPerson() != null
-                && updatedPerson.getIdPerson().equals(person.getIdPerson());
+    public PersonDataDomain updatePersonData(PersonDataDomain person) {
+        return jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
     }
 
     @Override
@@ -42,9 +42,9 @@ public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
 
     @Override
     public void logicalDeletePersonData(String idPerson) {
-        final var optPerson = searchPersonData(idPerson);
+        final var optPerson = searchPersonDataByIdAndDeleted(idPerson, false);
         if (optPerson.isEmpty()) {
-            throw new PersonNotFoundException("Person not found", "id", DomainErrorStatus.NOT_FOUND);
+            throw new PersonNotFoundException(PERSON_NOT_FOUND, "id", DomainErrorStatus.NOT_FOUND);
         }
         final var person = optPerson.get();
         final var personDao =
@@ -53,16 +53,26 @@ public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
     }
 
     // ********** QUERIES **********//
+
     @Override
-    public Optional<PersonDataDomain> searchPersonData(String idPerson) {
+    public Optional<PersonDataDomain> searchPersonDataByIdAndDeleted(String idPerson, boolean isIncludeDeleted) {
+        if (isIncludeDeleted) {
+            return Optional.ofNullable(jpaPersonRepository
+                    .findByIdUser(idPerson)
+                    .map(jpaPersonMapper::map)
+                    .orElseThrow(
+                            () -> new PersonNotFoundException(PERSON_NOT_FOUND, "id", DomainErrorStatus.NOT_FOUND)));
+        }
         return Optional.ofNullable(jpaPersonRepository
-                .findById(idPerson)
+                .findByIdUserAndDeleted(idPerson, false)
                 .map(jpaPersonMapper::map)
-                .orElseThrow(() -> new PersonNotFoundException("Person not found", "id", DomainErrorStatus.NOT_FOUND)));
+                .orElseThrow(() -> new PersonNotFoundException(PERSON_NOT_FOUND, "id", DomainErrorStatus.NOT_FOUND)));
     }
 
     @Override
     public List<PersonDataDomain> readAll() {
-        return jpaPersonRepository.findAll().stream().map(jpaPersonMapper::map).toList();
+        return jpaPersonRepository.findAllByDeleted(false).stream()
+                .map(jpaPersonMapper::map)
+                .toList();
     }
 }

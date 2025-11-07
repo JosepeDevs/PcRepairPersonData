@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @Slf4j
-public class LogicalDeletePersonRestController {
+public class RestHardDeletePersonController {
 
     private final BiConsumer<String, Boolean> deleteUseCase;
     private final Environment environment;
 
-    @DeleteMapping("/persons/{id}")
+    @DeleteMapping("/persons/hard/{id}")
     public ResponseEntity<Boolean> deleteHardPerson(@PathVariable("id") String id) {
         log.info(
-                "Received in port {} the request to delete (logical) person with id {}",
+                "Received in port {} the request to make a hard delete person with id {}",
                 environment.getProperty("local.server.port"),
                 id);
-        deleteUseCase.accept(id, false);
+        deleteUseCase.accept(id, true);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(true);
     }
 }

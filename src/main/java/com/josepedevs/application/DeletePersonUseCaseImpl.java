@@ -17,7 +17,7 @@ public class DeletePersonUseCaseImpl implements BiConsumer<String, Boolean> {
 
     @Override
     public void accept(String idPerson, Boolean isHardDelete) {
-        final var existentPerson = personFinder.findById(idPerson);
+        final var existentPerson = personFinder.findByIdAndIncludeDeleted(idPerson, false);
         existentPerson.ifPresentOrElse(
                 person -> {
                     if (Boolean.TRUE.equals(isHardDelete)) {

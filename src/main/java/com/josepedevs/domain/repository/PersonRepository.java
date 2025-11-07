@@ -7,12 +7,12 @@ import java.util.Optional;
 public interface PersonRepository {
 
     // ********** queries **********//
-    Optional<PersonDataDomain> searchPersonData(String idPerson);
+    Optional<PersonDataDomain> searchPersonDataByIdAndDeleted(String idPerson, boolean isIncludeDeleted);
 
     List<PersonDataDomain> readAll();
 
     // ********** Commands **********//
-    boolean updatePersonData(PersonDataDomain person);
+    PersonDataDomain updatePersonData(PersonDataDomain person);
 
     void deleteHardPersonData(String idPerson);
 

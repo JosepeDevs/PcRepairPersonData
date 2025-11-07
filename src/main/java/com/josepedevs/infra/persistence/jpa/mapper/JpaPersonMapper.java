@@ -13,8 +13,10 @@ import org.mapstruct.NullValueCheckStrategy;
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface JpaPersonMapper {
 
+    @Mapping(target = "idPerson", source = "idUser")
     PersonDataDomain map(PersonDataDao personDataDao);
 
+    @Mapping(target = "idUser", source = "idPerson")
     @Mapping(target = "deleted", constant = "false")
     PersonDataDao map(PersonDataDomain personDataDomain);
 }
