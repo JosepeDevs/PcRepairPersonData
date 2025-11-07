@@ -22,7 +22,7 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
     private final JpaPersonRepository jpaPersonRepository;
     private final JpaPersonMapper jpaPersonMapper;
 
-    // ********** Commands **********//
+    // ********** COMMANDS **********//
 
     @Override
     public PersonDataDomain createPersonData(PersonDataDomain person) {
@@ -31,9 +31,8 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
     }
 
     @Override
-    public boolean updatePersonData(PersonDataDomain person) {
-        final var updatedPerson = jpaPersonRepository.save(jpaPersonMapper.map(person));
-        return updatedPerson.getIdUser() != null && updatedPerson.getIdUser().equals(person.getIdPerson());
+    public PersonDataDomain updatePersonData(PersonDataDomain person) {
+        return jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
     }
 
     @Override
@@ -53,7 +52,8 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
         jpaPersonMapper.map(jpaPersonRepository.save(personDao));
     }
 
-    // ********** queries **********//
+    // ********** QUERIES **********//
+
     @Override
     public Optional<PersonDataDomain> searchPersonDataByIdAndDeleted(String idPerson, boolean isIncludeDeleted) {
         if (isIncludeDeleted) {
@@ -72,6 +72,8 @@ public class JpaPostgreSqlPersonRepositoryAdapter implements PersonRepository {
 
     @Override
     public List<PersonDataDomain> readAll() {
-        return jpaPersonRepository.findAll().stream().map(jpaPersonMapper::map).toList();
+        return jpaPersonRepository.findAllByDeleted(false).stream()
+                .map(jpaPersonMapper::map)
+                .toList();
     }
 }

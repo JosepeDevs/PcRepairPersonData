@@ -10,7 +10,7 @@ public class NameVo {
 
     public NameVo(String name) {
         if (name.length() >= 255) {
-            throw new LongInputException("The name length was too much, if saved, it has been truncated.", "name");
+            throw new LongInputException("The name length was too much, no more than 255 chars allowed", "name");
         }
         this.name = name;
     }

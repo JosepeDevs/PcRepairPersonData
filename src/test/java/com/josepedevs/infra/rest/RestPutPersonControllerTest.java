@@ -10,8 +10,9 @@ import static org.mockito.Mockito.when;
 import com.josepedevs.domain.dto.PersonDataDto;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.rest.dto.PersonRequestDto;
+import com.josepedevs.infra.rest.dto.ResponsePersonDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
-import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class RestPutPersonControllerTest {
     private RestPutPersonController controller;
 
     @Mock
-    private Consumer<PersonDataDomain> putPersonUseCase;
+    private UnaryOperator<PersonDataDomain> putPersonUseCase;
 
     @Mock
     private RestPersonMapper mapper;
@@ -49,18 +50,25 @@ class RestPutPersonControllerTest {
                 .nidPassport("74747474W")
                 .build();
         final var domainPerson = easyRandom.nextObject(PersonDataDomain.class).toBuilder()
+                .idPerson(id)
                 .name(inputPerson.getName())
                 .metadata(inputPerson.getMetadata())
                 .nidPassport(inputPerson.getNidPassport())
                 .build();
+        final var responseDto = ResponsePersonDto.builder()
+                .id(domainPerson.getIdPerson())
+                .name(domainPerson.getName())
+                .nidPassport(domainPerson.getNidPassport())
+                .metadata(domainPerson.getMetadata())
+                .build();
 
         when(environment.getProperty(any())).thenReturn("8080");
-
         when(mapper.map(any(PersonDataDto.class))).thenReturn(domainPerson);
+        when(putPersonUseCase.apply(any())).thenReturn(domainPerson);
 
         final var result = this.controller.updatePerson(id, inputPerson);
 
-        assertEquals(Boolean.TRUE, result.getBody());
-        verify(this.putPersonUseCase, times(1)).accept(any());
+        assertEquals(responseDto, result.getBody());
+        verify(this.putPersonUseCase, times(1)).apply(any());
     }
 }

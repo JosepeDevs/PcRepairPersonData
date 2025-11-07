@@ -28,6 +28,7 @@
 		<jeasy.version>5.0.0</jeasy.version>
 		<spotless.version>3.0.0</spotless.version>
 		<spring-cloud-dependencies.version>2025.0.0</spring-cloud-dependencies.version>
+		<jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
 	</properties>
 
 	<!-- Spring Cloud BOM -->
@@ -93,6 +94,11 @@
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<!-- Lombok and MapStruct -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -112,6 +118,11 @@
 			<groupId>org.jeasy</groupId>
 			<artifactId>easy-random-core</artifactId>
 			<version>${jeasy.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>spring-mock-mvc</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -141,6 +152,7 @@
 	<!-- Build Plugins -->
 	<build>
 		<plugins>
+			<!--generates mappers Impl and allows usage of lombok-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -171,6 +183,29 @@
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+
+			<!--generates reports of coverage (used by sonarqube)-->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>${jacoco-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--Plugin to clean up and unify styling over all code-->
 			<plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
@@ -187,7 +222,7 @@
 						<includes>
 							<include>src/main/java/**/*.java</include>
 							<include>src/test/java/**/*.java</include>
-							<include>src/integration-test/java/**/*.java</include>
+							<include>src/integration-tests/java/**/*.java</include>
 						</includes>
 						<toggleOffOn/>
 						<palantirJavaFormat/>

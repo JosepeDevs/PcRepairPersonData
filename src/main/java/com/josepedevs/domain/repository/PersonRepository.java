@@ -12,7 +12,7 @@ public interface PersonRepository {
     List<PersonDataDomain> readAll();
 
     // ********** Commands **********//
-    boolean updatePersonData(PersonDataDomain person);
+    PersonDataDomain updatePersonData(PersonDataDomain person);
 
     void deleteHardPersonData(String idPerson);
 

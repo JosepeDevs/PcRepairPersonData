@@ -10,8 +10,9 @@ import static org.mockito.Mockito.when;
 import com.josepedevs.domain.dto.PersonDataDto;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.rest.dto.PersonRequestDto;
+import com.josepedevs.infra.rest.dto.ResponsePersonDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ class RestPostPersonRestControllerTest {
     private RestPostPersonRestController controller;
 
     @Mock
-    private Function<PersonDataDomain, PersonDataDomain> postPersonUseCase;
+    private UnaryOperator<PersonDataDomain> postPersonUseCase;
 
     @Mock
     private RestPersonMapper mapper;
@@ -48,6 +49,12 @@ class RestPostPersonRestControllerTest {
                 .nidPassport("74747474W")
                 .build();
         final var domainPerson = easyRandom.nextObject(PersonDataDomain.class);
+        final var responsePerson = ResponsePersonDto.builder()
+                .id(domainPerson.getIdPerson())
+                .name(domainPerson.getName())
+                .nidPassport(domainPerson.getNidPassport())
+                .metadata(domainPerson.getMetadata())
+                .build();
 
         when(environment.getProperty(any())).thenReturn("8080");
 
@@ -56,7 +63,7 @@ class RestPostPersonRestControllerTest {
 
         final var result = this.controller.createPerson(inputPerson);
 
-        assertEquals(Boolean.TRUE, result.getBody());
+        assertEquals(responsePerson, result.getBody());
         verify(this.postPersonUseCase, times(1)).apply(any());
     }
 }

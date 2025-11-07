@@ -21,7 +21,9 @@ class JpaPersonMapperTest {
 
     @Test
     void map_GivenPersonDataDao_ThenReturnsPersonDataDomain() {
-        final var person = easyRandom.nextObject(PersonDataDao.class).toBuilder().nidPassport("77889966Q").build();
+        final var person = easyRandom.nextObject(PersonDataDao.class).toBuilder()
+                .nidPassport("77889966Q")
+                .build();
 
         final var dto = mapper.map(person);
         assertEquals(person.getName(), dto.getName());

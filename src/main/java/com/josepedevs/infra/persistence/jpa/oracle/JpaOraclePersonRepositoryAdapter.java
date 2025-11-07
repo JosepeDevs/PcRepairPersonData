@@ -31,10 +31,8 @@ public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
     }
 
     @Override
-    public boolean updatePersonData(PersonDataDomain person) {
-        PersonDataDomain updatedPerson = jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
-        return updatedPerson.getIdPerson() != null
-                && updatedPerson.getIdPerson().equals(person.getIdPerson());
+    public PersonDataDomain updatePersonData(PersonDataDomain person) {
+        return jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
     }
 
     @Override
@@ -55,6 +53,7 @@ public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
     }
 
     // ********** QUERIES **********//
+
     @Override
     public Optional<PersonDataDomain> searchPersonDataByIdAndDeleted(String idPerson, boolean isIncludeDeleted) {
         if (isIncludeDeleted) {
