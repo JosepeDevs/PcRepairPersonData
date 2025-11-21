@@ -21,6 +21,8 @@ sqlplus sys/Fhbkilusoeiruty@//oracle:1521/testdb as sysdba @/scripts/createTable
 
 echo "Creating schema..."
 sqlplus test_user/test_password@//oracle:1521/testdb @/scripts/schema.sql;
+echo "Creating Spring Batch tables..."
+sqlplus test_user/test_password@//oracle:1521/testdb @/scripts/schema-oracle.sql
 
 load_csv_with_sqlloader() {
   original_table_name="$1"
