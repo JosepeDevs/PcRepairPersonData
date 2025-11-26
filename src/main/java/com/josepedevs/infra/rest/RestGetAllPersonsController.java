@@ -3,8 +3,6 @@ package com.josepedevs.infra.rest;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.rest.dto.RestPersonDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
-import java.util.List;
-import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -12,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 @RestController
 @Slf4j

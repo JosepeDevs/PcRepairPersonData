@@ -1,7 +1,5 @@
 package com.josepedevs.domain.exceptions;
 
-import java.util.HashMap;
-import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -9,6 +7,9 @@ import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,7 +30,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> globalExceptionManager(Exception ex) {
         Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put("Exception", "A problem happened.");
+        final var msg= String.format("A problem happened: %s", ex.getLocalizedMessage());
+        errorDetails.put("Exception", msg);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 
@@ -44,9 +46,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JpaSystemException.class)
     public ResponseEntity<Map<String, String>> jpaException(JpaSystemException ex) {
         Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put(
-                "PersistException",
-                "There was a problem when persisting your data, possible action: review name of attributes sent.");
+        final var msg= String.format(
+            "There was a problem when persisting your data, possible action: review name of attributes sent. more info: %s",
+            ex.getLocalizedMessage()
+        );
+        errorDetails.put("PersistException", msg);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 
@@ -54,25 +58,33 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> myOwnHttpMessageNotReadableException(
             HttpMessageNotReadableException ex) {
         Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put(
-                "Http Error",
-                "A problem with the HTTP message occurred and cannot be read properly, maybe it could not be parsed correctly to/from JSON, check content of body.");
+        final var msg= String.format(
+                "A problem with the HTTP message occurred and cannot be read properly, maybe it could not be parsed correctly to/from JSON, check content of body. more info: %s",
+                ex.getLocalizedMessage()
+        );
+        errorDetails.put("Http Error", msg);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDetails);
     }
 
     @ExceptionHandler(value = IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
         Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put(
-                "Illegal argument error",
-                "The argument or parameter that was in use or used was not expected (illegal argument).");
+        final var msg= String.format(
+                "The argument or parameter that was in use or used was not expected (illegal argument). more info: %s",
+                ex.getLocalizedMessage()
+        );
+        errorDetails.put("Illegal argument error", msg);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 
     @ExceptionHandler(value = NullPointerException.class)
     public ResponseEntity<Map<String, String>> handleNullPointerException(NullPointerException ex) {
         Map<String, String> errorDetails = new HashMap<>();
-        errorDetails.put("Null resource error", "You tried to use a null resource");
+        final var msg= String.format(
+                "Null resource error. more info: %s",
+                ex.getLocalizedMessage()
+        );
+        errorDetails.put("Null resource error", msg);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDetails);
     }
 }

@@ -1,16 +1,8 @@
 package com.josepedevs.infra.rest;
 
-import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.rest.dto.RestPersonDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
-import java.util.List;
-import java.util.function.Supplier;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,6 +10,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
+
+import java.util.List;
+import java.util.function.Supplier;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RestGetAllPersonsControllerTest {
@@ -51,6 +53,7 @@ class RestGetAllPersonsControllerTest {
 
         final var result = this.controller.getAll();
 
+        assertNotNull(result.getBody());
         assertEquals(1, result.getBody().size());
         verify(this.getAllPersonsUseCase, times(1)).get();
     }

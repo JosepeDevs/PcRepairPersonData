@@ -6,11 +6,12 @@ import com.josepedevs.domain.exceptions.PersonNotFoundException;
 import com.josepedevs.domain.repository.PersonRepository;
 import com.josepedevs.infra.persistence.jpa.mapper.JpaPersonMapper;
 import com.josepedevs.infra.persistence.jpa.repository.JpaPersonRepository;
-import java.util.List;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Profile({"devneon", "proaws"})

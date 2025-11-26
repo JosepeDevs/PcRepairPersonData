@@ -1,10 +1,11 @@
 package com.josepedevs.domain.entities;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.josepedevs.domain.exceptions.MyRuntimeException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PersonDataDomainTest {
 

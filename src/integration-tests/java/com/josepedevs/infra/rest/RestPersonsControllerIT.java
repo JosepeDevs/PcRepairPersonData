@@ -1,5 +1,15 @@
 package com.josepedevs.infra.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.josepedevs.CommonRestController;
+import com.josepedevs.domain.exceptions.DomainErrorStatus;
+import com.josepedevs.infra.rest.dto.PersonRequestDto;
+import com.josepedevs.infra.rest.dto.ResponsePersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonDto;
+import io.restassured.response.Response;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+
 import static com.josepedevs.domain.exceptions.DomainErrorStatus.UNPROCESSABLE_ENTITY;
 import static io.restassured.RestAssured.given;
 import static java.net.HttpURLConnection.HTTP_CREATED;
@@ -12,16 +22,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.josepedevs.CommonRestController;
-import com.josepedevs.domain.exceptions.DomainErrorStatus;
-import com.josepedevs.infra.rest.dto.PersonRequestDto;
-import com.josepedevs.infra.rest.dto.ResponsePersonDto;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
-import io.restassured.response.Response;
-import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
 
 @Slf4j
 class RestPersonsControllerIT extends CommonRestController {

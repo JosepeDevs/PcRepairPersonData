@@ -6,11 +6,13 @@ import com.josepedevs.domain.exceptions.PersonNotFoundException;
 import com.josepedevs.domain.repository.PersonRepository;
 import com.josepedevs.infra.persistence.jpa.mapper.JpaPersonMapper;
 import com.josepedevs.infra.persistence.jpa.repository.JpaPersonRepository;
-import java.util.List;
-import java.util.Optional;
+import com.josepedevs.infra.rest.feign.RestBatchClient;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Profile("oracle")
@@ -21,18 +23,20 @@ public class JpaOraclePersonRepositoryAdapter implements PersonRepository {
 
     private final JpaPersonRepository jpaPersonRepository;
     private final JpaPersonMapper jpaPersonMapper;
+    private final RestBatchClient restBatchClient;
 
     // ********** COMMANDS **********//
 
     @Override
     public PersonDataDomain createPersonData(PersonDataDomain person) {
-        jpaPersonRepository.save(jpaPersonMapper.map(person));
-        return person;
+        return updatePersonData(person);
     }
 
     @Override
     public PersonDataDomain updatePersonData(PersonDataDomain person) {
-        return jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
+        final var result = jpaPersonMapper.map(jpaPersonRepository.save(jpaPersonMapper.map(person)));
+        restBatchClient.runJobAsync();
+        return result;
     }
 
     @Override

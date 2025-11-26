@@ -1,6 +1,5 @@
 package com.josepedevs.domain.exceptions;
 
-import java.util.stream.Stream;
 import lombok.Getter;
 
 @Getter
@@ -18,10 +17,4 @@ public enum DomainErrorStatus {
         this.status = status;
     }
 
-    public static DomainErrorStatus fromCode(int code) {
-        return Stream.of(DomainErrorStatus.values())
-                .filter(status -> status.getStatus() == code)
-                .findFirst()
-                .orElseThrow(() -> new MyRuntimeException("Unsupported " + DomainErrorStatus.class + " code: " + code));
-    }
 }

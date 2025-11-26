@@ -1,10 +1,11 @@
 package com.josepedevs.domain.exceptions;
 
-import java.io.Serial;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.log4j.Log4j2;
+
+import java.io.Serial;
 
 @Getter
 @Log4j2
@@ -27,9 +28,4 @@ public class MyRuntimeException extends RuntimeException {
         log.error(myErrorMessage, illegalAttributeName);
     }
 
-    public MyRuntimeException(String domainErrorStatus) {
-        this.status = DomainErrorStatus.valueOf(domainErrorStatus);
-        myErrorMessage = null;
-        illegalAttributeName = null;
-    }
 }

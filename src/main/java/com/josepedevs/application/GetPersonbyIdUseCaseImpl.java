@@ -4,10 +4,11 @@ import com.josepedevs.application.service.PersonFinderService;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.exceptions.DomainErrorStatus;
 import com.josepedevs.domain.exceptions.PersonNotFoundException;
-import java.util.function.Function;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.function.Function;
 
 @Service
 @AllArgsConstructor

@@ -1,9 +1,10 @@
 package com.josepedevs.testutil;
 
-import java.util.Random;
 import lombok.experimental.UtilityClass;
 import org.jeasy.random.EasyRandom;
 import org.jeasy.random.EasyRandomParameters;
+
+import java.util.Random;
 
 @UtilityClass
 public class PreparedEasyRandom {

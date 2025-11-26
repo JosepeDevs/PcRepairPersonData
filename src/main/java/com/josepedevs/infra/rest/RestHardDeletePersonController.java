@@ -1,6 +1,5 @@
 package com.josepedevs.infra.rest;
 
-import java.util.function.BiConsumer;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.env.Environment;
@@ -9,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.function.BiConsumer;
 
 @RestController
 @AllArgsConstructor
