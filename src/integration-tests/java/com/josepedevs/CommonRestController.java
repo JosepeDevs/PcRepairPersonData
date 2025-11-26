@@ -1,13 +1,13 @@
 package com.josepedevs;
 
-import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.http.HttpHeaders;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
 
 @Slf4j
 public class CommonRestController {

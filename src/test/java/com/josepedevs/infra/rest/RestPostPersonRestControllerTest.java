@@ -1,18 +1,10 @@
 package com.josepedevs.infra.rest;
 
-import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.josepedevs.domain.dto.PersonDataDto;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.rest.dto.PersonRequestDto;
 import com.josepedevs.infra.rest.dto.ResponsePersonDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
-import java.util.function.UnaryOperator;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +12,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.core.env.Environment;
+
+import java.util.function.UnaryOperator;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RestPostPersonRestControllerTest {

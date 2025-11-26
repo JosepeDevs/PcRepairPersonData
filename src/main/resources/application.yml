@@ -14,6 +14,8 @@ server:
 logging:
   level:
    "[org.springframework.web]": INFO
+   feign: DEBUG
+   org.springframework.cloud.openfeign: DEBUG
 management:
   endpoints:
     web:
@@ -25,3 +27,10 @@ eureka:
     register-with-eureka: true
     service-url:
       defaultZone: http://${EUREKA_INSTANCE_HOSTNAME:localhost}:${EUREKA_PORT:9876}/eureka
+feign:
+  client:
+    config:
+      PERSONBATCH:
+        connectTimeout: 3000
+        readTimeout: 10000
+        loggerLevel: FULL

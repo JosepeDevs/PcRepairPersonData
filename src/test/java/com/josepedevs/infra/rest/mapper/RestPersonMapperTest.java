@@ -1,15 +1,15 @@
 package com.josepedevs.infra.rest.mapper;
 
-import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-
 import com.josepedevs.domain.dto.PersonDataDto;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class RestPersonMapperTest {
 

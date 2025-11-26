@@ -1,6 +1,7 @@
 package com.josepedevs.domain.repository;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
+
 import java.util.List;
 import java.util.Optional;
 

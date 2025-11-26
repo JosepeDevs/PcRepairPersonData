@@ -8,8 +8,6 @@ import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.rest.dto.PersonRequestDto;
 import com.josepedevs.infra.rest.dto.ResponsePersonDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
-import java.util.function.Function;
-import java.util.function.UnaryOperator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 @RestController
 @Slf4j

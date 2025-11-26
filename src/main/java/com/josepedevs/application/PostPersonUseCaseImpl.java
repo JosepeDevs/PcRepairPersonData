@@ -6,10 +6,11 @@ import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.repository.PersonRepository;
-import java.util.function.UnaryOperator;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+
+import java.util.function.UnaryOperator;
 
 @Component
 @Qualifier("postPersonUseCase")

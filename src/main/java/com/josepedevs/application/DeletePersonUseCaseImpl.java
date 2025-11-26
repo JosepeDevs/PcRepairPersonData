@@ -4,9 +4,10 @@ import com.josepedevs.application.service.PersonFinderService;
 import com.josepedevs.domain.exceptions.DomainErrorStatus;
 import com.josepedevs.domain.exceptions.PersonNotFoundException;
 import com.josepedevs.domain.repository.PersonRepository;
-import java.util.function.BiConsumer;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.util.function.BiConsumer;
 
 @Component
 @AllArgsConstructor

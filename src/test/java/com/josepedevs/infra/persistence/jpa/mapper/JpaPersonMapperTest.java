@@ -1,13 +1,14 @@
 package com.josepedevs.infra.persistence.jpa.mapper;
 
-import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.infra.persistence.jpa.dto.PersonDataDao;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class JpaPersonMapperTest {
 

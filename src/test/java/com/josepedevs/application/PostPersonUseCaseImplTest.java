@@ -1,10 +1,5 @@
 package com.josepedevs.application;
 
-import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.repository.PersonRepository;
 import org.jeasy.random.EasyRandom;
@@ -13,6 +8,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static com.josepedevs.testutil.PreparedEasyRandom.PREPARED_EASY_RANDOM;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PostPersonUseCaseImplTest {

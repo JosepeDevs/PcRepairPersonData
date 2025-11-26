@@ -1,18 +1,23 @@
 package com.josepedevs.domain.exceptions;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-
-import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class GlobalExceptionHandlerTest {
@@ -75,10 +80,15 @@ class GlobalExceptionHandlerTest {
     @Test
     void myOwnHttpMessageNotReadableException_GivenHttpMessageNotReadableException_ThenReturnsBadRequest() {
 
-        var exception = new HttpMessageNotReadableException("Unreadable JSON");
+        final var message = "Unreadable JSON";
+        final var exception = new HttpMessageNotReadableException(message, null, (HttpInputMessage) null);
 
         var response = handler.myOwnHttpMessageNotReadableException(exception);
 
+        assertAll(
+                () -> assertNotNull(exception),
+                () -> assertEquals(message, exception.getMessage())
+        );
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertNotNull(response.getBody());
         assertTrue(response.getBody().containsKey("Http Error"));

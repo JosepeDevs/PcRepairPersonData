@@ -2,11 +2,12 @@ package com.josepedevs.application;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.repository.PersonRepository;
-import java.util.List;
-import java.util.function.Supplier;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 @AllArgsConstructor
