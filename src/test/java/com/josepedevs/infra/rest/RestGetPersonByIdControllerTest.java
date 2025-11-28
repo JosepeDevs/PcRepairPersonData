@@ -2,7 +2,7 @@ package com.josepedevs.infra.rest;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
 import com.josepedevs.domain.exceptions.PersonNotFoundException;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
@@ -59,7 +59,7 @@ class RestGetPersonByIdControllerTest {
 
         final var id = easyRandom.nextObject(String.class);
         final var domainPerson = easyRandom.nextObject(PersonDataDomain.class);
-        final var restPersonDto = easyRandom.nextObject(RestPersonDto.class);
+        final var restPersonDto = easyRandom.nextObject(RestPersonResponseDto.class);
 
         when(getPersonByIdUseCase.apply(id)).thenReturn(domainPerson);
         when(mapper.map(domainPerson)).thenReturn(restPersonDto);

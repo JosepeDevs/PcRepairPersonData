@@ -1,4 +1,4 @@
-package com.josepedevs;
+package com.josepedevs.it;
 
 import io.restassured.RestAssured;
 import lombok.extern.slf4j.Slf4j;

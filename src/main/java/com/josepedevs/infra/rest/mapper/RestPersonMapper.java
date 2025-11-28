@@ -5,7 +5,7 @@ import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -25,7 +25,7 @@ public interface RestPersonMapper {
     PersonDataDomain map(PersonDataDto personDataDto);
 
     @Mapping(target = "id", source = "idPerson")
-    RestPersonDto map(PersonDataDomain restPersonDto);
+    RestPersonResponseDto map(PersonDataDomain restPersonDto);
 
     @Named("mapName")
     default NameVo mapName(String value) {

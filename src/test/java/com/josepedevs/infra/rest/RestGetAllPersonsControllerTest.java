@@ -1,7 +1,7 @@
 package com.josepedevs.infra.rest;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,7 +46,7 @@ class RestGetAllPersonsControllerTest {
     void getAll_GivenRequestReceived_ThenReturnsOkAndList() {
 
         final var domainPerson = easyRandom.nextObject(PersonDataDomain.class);
-        final var restPersonDto = easyRandom.nextObject(RestPersonDto.class);
+        final var restPersonDto = easyRandom.nextObject(RestPersonResponseDto.class);
 
         when(getAllPersonsUseCase.get()).thenReturn(List.of(domainPerson));
         when(mapper.map(domainPerson)).thenReturn(restPersonDto);

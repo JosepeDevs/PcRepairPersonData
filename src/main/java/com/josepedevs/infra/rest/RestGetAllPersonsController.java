@@ -1,7 +1,7 @@
 package com.josepedevs.infra.rest;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class RestGetAllPersonsController {
     private final Environment environment;
 
     @GetMapping("persons")
-    public ResponseEntity<List<RestPersonDto>> getAll() {
+    public ResponseEntity<List<RestPersonResponseDto>> getAll() {
         log.info("Received in port {} the request to get all persons", environment.getProperty("local.server.port"));
         return ResponseEntity.status(HttpStatus.OK)
                 .body(getAllPersonsUseCase.get().stream()

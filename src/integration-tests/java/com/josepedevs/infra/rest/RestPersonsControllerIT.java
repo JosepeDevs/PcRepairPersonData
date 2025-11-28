@@ -1,11 +1,10 @@
 package com.josepedevs.infra.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.josepedevs.CommonRestController;
 import com.josepedevs.domain.exceptions.DomainErrorStatus;
-import com.josepedevs.infra.rest.dto.PersonRequestDto;
-import com.josepedevs.infra.rest.dto.ResponsePersonDto;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonRequestDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
+import com.josepedevs.it.CommonRestController;
 import io.restassured.response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -77,7 +76,7 @@ class RestPersonsControllerIT extends CommonRestController {
                     .extract()
                     .response();
 
-            final var body = response.as(RestPersonDto.class);
+            final var body = response.as(RestPersonResponseDto.class);
             assertNotNull(body);
         } finally {
             deleteHardPersonById(id);
@@ -99,7 +98,7 @@ class RestPersonsControllerIT extends CommonRestController {
     @Test
     void postPerson_GivenInvalidObject_ThenReturnsBadRequest() {
 
-        final var invalidBody = easyRandom.nextObject(PersonRequestDto.class).toBuilder()
+        final var invalidBody = easyRandom.nextObject(RestPersonRequestDto.class).toBuilder()
                 .nidPassport("invalid_format")
                 .build();
         given().headers(headers)
@@ -115,7 +114,7 @@ class RestPersonsControllerIT extends CommonRestController {
     void putPerson_GivenValidObject_ThenReturnsOK() {
         final var id = createPerson();
         try {
-            final var body = easyRandom.nextObject(PersonRequestDto.class).toBuilder()
+            final var body = easyRandom.nextObject(RestPersonRequestDto.class).toBuilder()
                     .nidPassport("77889944S")
                     .build();
             final var response = given().headers(headers)
@@ -126,7 +125,7 @@ class RestPersonsControllerIT extends CommonRestController {
                     .everything()
                     .statusCode(HTTP_OK)
                     .extract()
-                    .as(ResponsePersonDto.class);
+                    .as(RestPersonResponseDto.class);
 
             assertNotNull(response);
             assertNotNull(response.getId());
@@ -139,7 +138,7 @@ class RestPersonsControllerIT extends CommonRestController {
     void putPerson_GivenInvalidObject_ThenReturnsBadRequest() {
 
         String invalidId = "ID_TOO_^" + "LONG".repeat(256);
-        final var body = easyRandom.nextObject(PersonRequestDto.class).toBuilder()
+        final var body = easyRandom.nextObject(RestPersonRequestDto.class).toBuilder()
                 .nidPassport("7fw3447889944S")
                 .build();
 
@@ -174,7 +173,7 @@ class RestPersonsControllerIT extends CommonRestController {
      * helper method and tests postPersonOK
      */
     private String createPerson() {
-        final var body = easyRandom.nextObject(PersonRequestDto.class).toBuilder()
+        final var body = easyRandom.nextObject(RestPersonRequestDto.class).toBuilder()
                 .nidPassport("77886611S")
                 .build();
 
@@ -186,7 +185,7 @@ class RestPersonsControllerIT extends CommonRestController {
                 .everything()
                 .statusCode(HTTP_CREATED)
                 .extract()
-                .as(ResponsePersonDto.class);
+                .as(RestPersonResponseDto.class);
         return response.getId();
     }
 }
