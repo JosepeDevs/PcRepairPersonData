@@ -5,8 +5,8 @@ import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.PersonRequestDto;
-import com.josepedevs.infra.rest.dto.ResponsePersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonRequestDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,8 @@ public class RestPutPersonController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ResponsePersonDto> updatePerson(
-            @PathVariable("id") String id, @RequestBody PersonRequestDto person) {
+    public ResponseEntity<RestPersonResponseDto> updatePerson(
+            @PathVariable("id") String id, @RequestBody RestPersonRequestDto person) {
         log.info(
                 "Received in port {} request to update person: {} with id {}",
                 environment.getProperty("local.server.port"),
@@ -58,7 +58,7 @@ public class RestPutPersonController {
                 .build()));
         // this will create an event  (in the future), instead of a return (CQRS)
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ResponsePersonDto.builder()
+                .body(RestPersonResponseDto.builder()
                         .id(domainPerson.getIdPerson())
                         .name(domainPerson.getName())
                         .nidPassport(domainPerson.getNidPassport())

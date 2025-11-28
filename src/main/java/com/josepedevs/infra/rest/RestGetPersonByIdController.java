@@ -1,7 +1,7 @@
 package com.josepedevs.infra.rest;
 
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.RestPersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class RestGetPersonByIdController {
     private final Environment environment;
 
     @GetMapping(value = "persons/{id}")
-    public ResponseEntity<RestPersonDto> getPerson(@PathVariable String id) {
+    public ResponseEntity<RestPersonResponseDto> getPerson(@PathVariable String id) {
         log.info(
                 "Received in port {} request to get person with id: {}",
                 environment.getProperty("local.server.port"),

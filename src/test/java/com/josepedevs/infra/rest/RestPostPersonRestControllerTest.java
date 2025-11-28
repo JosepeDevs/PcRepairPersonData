@@ -2,8 +2,8 @@ package com.josepedevs.infra.rest;
 
 import com.josepedevs.domain.dto.PersonDataDto;
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.PersonRequestDto;
-import com.josepedevs.infra.rest.dto.ResponsePersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonRequestDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import org.jeasy.random.EasyRandom;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,11 +46,11 @@ class RestPostPersonRestControllerTest {
     @Test
     void createPerson_GivenValidRequest_ThenReturnsTrueAndCreates() {
 
-        final var inputPerson = easyRandom.nextObject(PersonRequestDto.class).toBuilder()
+        final var inputPerson = easyRandom.nextObject(RestPersonRequestDto.class).toBuilder()
                 .nidPassport("74747474W")
                 .build();
         final var domainPerson = easyRandom.nextObject(PersonDataDomain.class);
-        final var responsePerson = ResponsePersonDto.builder()
+        final var responsePerson = RestPersonResponseDto.builder()
                 .id(domainPerson.getIdPerson())
                 .name(domainPerson.getName())
                 .nidPassport(domainPerson.getNidPassport())

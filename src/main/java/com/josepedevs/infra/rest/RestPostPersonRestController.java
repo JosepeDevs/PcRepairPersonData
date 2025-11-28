@@ -5,8 +5,8 @@ import com.josepedevs.domain.dto.valueobjects.MetadataVo;
 import com.josepedevs.domain.dto.valueobjects.NameVo;
 import com.josepedevs.domain.dto.valueobjects.NidPassportVo;
 import com.josepedevs.domain.entities.PersonDataDomain;
-import com.josepedevs.infra.rest.dto.PersonRequestDto;
-import com.josepedevs.infra.rest.dto.ResponsePersonDto;
+import com.josepedevs.infra.rest.dto.RestPersonRequestDto;
+import com.josepedevs.infra.rest.dto.RestPersonResponseDto;
 import com.josepedevs.infra.rest.mapper.RestPersonMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class RestPostPersonRestController {
     }
 
     @PostMapping("/persons")
-    public ResponseEntity<ResponsePersonDto> createPerson(@RequestBody PersonRequestDto person) {
+    public ResponseEntity<RestPersonResponseDto> createPerson(@RequestBody RestPersonRequestDto person) {
         log.info(
                 "Received in port {} request to create a person: {}",
                 environment.getProperty("local.server.port"),
@@ -52,7 +52,7 @@ public class RestPostPersonRestController {
                 .build()));
         // in the future this will instead create an event and return nothing
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ResponsePersonDto.builder()
+                .body(RestPersonResponseDto.builder()
                         .id(domainPerson.getIdPerson())
                         .name(domainPerson.getName())
                         .nidPassport(domainPerson.getNidPassport())

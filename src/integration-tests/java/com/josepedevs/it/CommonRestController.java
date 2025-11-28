@@ -1,4 +1,4 @@
-package com.josepedevs;
+package com.josepedevs.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
